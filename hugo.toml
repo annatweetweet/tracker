@@ -6,3 +6,11 @@ theme = "agb"
 [params]
   description = "A private expense ledger for AGB"
   author = "Anna"
+
+[minify]
+  minifyOutput = true
+
+[module]
+  [module.hugoVersion]
+    extended = true
+    min = "0.112.0"
