@@ -7,7 +7,10 @@ theme = "agb"
   description = "A private expense ledger for AGB"
   author = "Anna"
 
+[markup.goldmark.renderer]
+  unsafe = true
+
 [module]
   [module.hugoVersion]
     extended = true
-    min = "0.112.0"
+    min = "0.160.1"
