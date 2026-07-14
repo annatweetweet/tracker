@@ -1,0 +1,8 @@
+baseURL = "/"
+languageCode = "en-us"
+title = "Anna's Money Tracker · AGB"
+theme = "agb"
+
+[params]
+  description = "A private expense ledger for AGB"
+  author = "Anna"
