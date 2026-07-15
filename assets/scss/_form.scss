@@ -5,27 +5,20 @@
   border: 1px solid $fog-light;
   border-radius: $radius-lg;
   padding: $space-md;
-
-  @media (min-width: $bp-sm) {
-    padding: $space-lg;
-  }
+  @media (min-width: $bp-sm) { padding: $space-lg; }
 
   &__row {
     display: grid;
     grid-template-columns: 1fr;
     gap: $space-sm;
     margin-bottom: $space-sm;
-
-    @media (min-width: $bp-sm) {
-      grid-template-columns: 1fr 1fr;
-    }
+    @media (min-width: $bp-sm) { grid-template-columns: 1fr 1fr; }
   }
 
   &__group {
     display: flex;
     flex-direction: column;
     gap: 0.3rem;
-
     &--full { grid-column: 1 / -1; }
   }
 
@@ -34,7 +27,7 @@
     font-weight: 600;
     letter-spacing: 0.09em;
     text-transform: uppercase;
-    color: $olive;
+    color: $color-label;
   }
 
   %input-base {
@@ -44,36 +37,30 @@
     border: 1px solid $fog;
     border-radius: $radius-md;
     padding: 0.6rem 0.75rem;
-    color: $bordeaux-deep;
+    color: $color-text;
     outline: none;
     width: 100%;
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
 
     &::placeholder { color: $fog; }
-
     &:focus {
-      border-color: $bordeaux;
-      box-shadow: 0 0 0 3px rgba($bordeaux, 0.08);
+      border-color: $color-primary;
+      box-shadow: 0 0 0 3px rgba($rust, 0.1);
     }
-
     &.is-error {
-      border-color: $bordeaux;
-      box-shadow: 0 0 0 3px rgba($bordeaux, 0.12);
+      border-color: $color-danger;
+      box-shadow: 0 0 0 3px rgba($rust, 0.12);
     }
   }
 
-  &__input   { @extend %input-base; }
-  &__textarea {
-    @extend %input-base;
-    resize: vertical;
-    min-height: 64px;
-  }
+  &__input    { @extend %input-base; }
+  &__textarea { @extend %input-base; resize: vertical; min-height: 64px; }
 
   &__select {
     @extend %input-base;
     appearance: none;
     -webkit-appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%235A5E3F' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%233E4832' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 0.75rem center;
     background-color: $parchment;
@@ -83,13 +70,27 @@
 
   &__error {
     font-size: 0.78rem;
-    color: $bordeaux;
+    color: $color-danger;
     margin-bottom: $space-sm;
     padding: 0.4rem 0.6rem;
-    background: $bordeaux-faint;
+    background: $color-danger-faint;
     border-radius: $radius-sm;
-    border-left: 3px solid $bordeaux;
-
+    border-left: 3px solid $color-danger;
     &[hidden] { display: none; }
   }
+
+  &__actions {
+    display: flex;
+    gap: $space-sm;
+    margin-top: $space-sm;
+    align-items: center;
+  }
+}
+
+// ─── Modal variant ~ no card shell, modal provides the container ──────────────
+.expense-form--modal {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
 }

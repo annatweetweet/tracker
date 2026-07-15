@@ -1,100 +1,271 @@
 <main class="tracker" id="tracker-app">
 
-  {{/* Header */}}
+  {{/* ── Header + Tabs ──────────────────────────────────────────────────── */}}
   <header class="tracker__header">
     <div class="tracker__header-inner">
       <div class="tracker__brand">
         <h1 class="tracker__site-title">Anna's Money Tracker</h1>
         <p class="tracker__site-sub">AGB Personal Finance</p>
       </div>
+      <div class="tracker__header-right">
+      <span class="sync-status" id="sync-status"></span>
+      <nav class="tracker__tabs" aria-label="Main navigation">
+        <button class="tracker__tab tracker__tab--active" id="tab-tracker">Tracker</button>
+        <button class="tracker__tab" id="tab-dashboard">Dashboard</button>
+      </nav>
+      </div>
+    </div>
+  </header>
+
+  {{/* ══════════════════════════════════════════════════════════════════════
+       TRACKER VIEW
+  ══════════════════════════════════════════════════════════════════════════ */}}
+  <div id="view-tracker">
+
+    <div class="tracker__summary-bar">
       <nav class="tracker__month-nav" aria-label="Month navigation">
         <button class="tracker__month-btn" id="prev-month" aria-label="Previous month">&#8592;</button>
         <span class="tracker__month-label" id="month-label" aria-live="polite"></span>
         <button class="tracker__month-btn" id="next-month" aria-label="Next month">&#8594;</button>
       </nav>
     </div>
-  </header>
 
-  {{/* Summary */}}
-  <section class="tracker__summary" aria-label="Monthly summary">
-    <div class="summary-card">
-      <span class="summary-card__label">Total Spent</span>
-      <span class="summary-card__value" id="total-spent">&#8369;0.00</span>
-    </div>
-    <div class="summary-card">
-      <span class="summary-card__label">Entries</span>
-      <span class="summary-card__value" id="entry-count">0</span>
-    </div>
-    <div class="summary-card">
-      <span class="summary-card__label">Top Category</span>
-      <span class="summary-card__value summary-card__value--sm" id="top-cat">~</span>
-    </div>
-  </section>
+    <section class="tracker__summary" aria-label="Monthly summary">
+      <div class="summary-card">
+        <span class="summary-card__label">Total Spent</span>
+        <span class="summary-card__value" id="total-spent">&#8369;0.00</span>
+      </div>
+      <div class="summary-card">
+        <span class="summary-card__label">Entries</span>
+        <span class="summary-card__value" id="entry-count">0</span>
+      </div>
+      <div class="summary-card">
+        <span class="summary-card__label">Top Category</span>
+        <span class="summary-card__value summary-card__value--sm" id="top-cat">~</span>
+      </div>
+    </section>
 
-  {{/* Add Expense Form */}}
-  <section class="tracker__section">
-    <h2 class="tracker__section-title">Add Expense</h2>
-    <div class="expense-form" role="form" aria-label="Add a new expense">
-      <div class="expense-form__row">
-        <div class="expense-form__group">
-          <label class="expense-form__label" for="amt">Amount (&#8369;)</label>
-          <input
-            class="expense-form__input"
-            type="number"
-            id="amt"
-            name="amt"
-            placeholder="0.00"
-            min="0"
-            step="0.01"
-            autocomplete="off"
-            aria-required="true"
-          >
+    {{/* Add Expense Form */}}
+    <section class="tracker__section">
+      <h2 class="tracker__section-title" id="form-title">Add Expense</h2>
+      <div class="expense-form" role="form" aria-labelledby="form-title">
+        <input type="hidden" id="edit-id">
+        <div class="expense-form__row">
+          <div class="expense-form__group">
+            <label class="expense-form__label" for="amt">Amount (&#8369;)</label>
+            <input
+              class="expense-form__input"
+              type="number"
+              id="amt"
+              name="amt"
+              placeholder="0.00"
+              min="0"
+              step="0.01"
+              autocomplete="off"
+              aria-required="true"
+            >
+          </div>
+          <div class="expense-form__group">
+            <label class="expense-form__label" for="cat">Category</label>
+            <select class="expense-form__select" id="cat" name="cat" aria-required="true">
+              <option value="">Select a category...</option>
+              <option value="Health">Health</option>
+              <option value="Beauty">Beauty</option>
+              <option value="Food / Groceries">Food / Groceries</option>
+              <option value="Vacation / Relaxation / Eating Out">Vacation / Relaxation / Eating Out</option>
+              <option value="House">House</option>
+              <option value="Self Improvement">Self Improvement</option>
+              <option value="Gadgets">Gadgets</option>
+              <option value="Clothing">Clothing</option>
+              <option value="Transportation">Transportation</option>
+              <option value="Gifts">Gifts</option>
+              <option value="Government Savings">Government Savings</option>
+            </select>
+          </div>
         </div>
-        <div class="expense-form__group">
-          <label class="expense-form__label" for="cat">Category</label>
-          <select class="expense-form__select" id="cat" name="cat" aria-required="true">
-            <option value="">Select a category...</option>
-            <option value="Health">Health</option>
-            <option value="Beauty">Beauty</option>
-            <option value="Food / Groceries">Food / Groceries</option>
-            <option value="Vacation / Relaxation / Eating Out">Vacation / Relaxation / Eating Out</option>
-            <option value="House">House</option>
-            <option value="Self Improvement">Self Improvement</option>
-            <option value="Gadgets">Gadgets</option>
-            <option value="Clothing">Clothing</option>
-            <option value="Transportation">Transportation</option>
-            <option value="Gifts">Gifts</option>
-            <option value="Government Savings">Government Savings</option>
-          </select>
+        <div class="expense-form__row">
+          <div class="expense-form__group">
+            <label class="expense-form__label" for="payment">Mode of Payment</label>
+            <select class="expense-form__select" id="payment" name="payment" aria-required="true">
+              <option value="">Select...</option>
+              <option value="Cash">Cash</option>
+              <option value="Credit Card">Credit Card</option>
+            </select>
+          </div>
+          <div class="expense-form__group">
+            <label class="expense-form__label" for="notes">Notes</label>
+            <input
+              class="expense-form__input"
+              type="text"
+              id="notes"
+              name="notes"
+              placeholder="What was it for?"
+              autocomplete="off"
+            >
+          </div>
+        </div>
+        <p class="expense-form__error" id="form-error" role="alert" aria-live="assertive" hidden></p>
+        <div class="expense-form__actions">
+          <button class="btn btn--primary" id="add-btn" type="button">Add Expense</button>
+          <button class="btn btn--ghost" id="cancel-edit-btn" type="button" hidden>Cancel</button>
         </div>
       </div>
-      <div class="expense-form__group expense-form__group--full">
-        <label class="expense-form__label" for="notes">Notes</label>
-        <textarea
-          class="expense-form__textarea"
-          id="notes"
-          name="notes"
-          placeholder="What was it for?"
-          rows="2"
-        ></textarea>
+    </section>
+
+    {{/* Category Breakdown */}}
+    <section class="tracker__section" id="chart-section" hidden aria-label="Spending by category">
+      <h2 class="tracker__section-title">By Category</h2>
+      <div class="cat-chart" id="cat-chart" aria-label="Category spending bars"></div>
+    </section>
+
+    {{/* Expense Log */}}
+    <section class="tracker__section">
+      <h2 class="tracker__section-title">This Month</h2>
+      <div class="expense-list" id="expense-list" aria-label="Expense log" aria-live="polite">
+        <p class="expense-list__empty">No expenses logged yet.</p>
       </div>
-      <p class="expense-form__error" id="form-error" role="alert" aria-live="assertive" hidden></p>
-      <button class="btn btn--primary" id="add-btn" type="button">Add Expense</button>
-    </div>
-  </section>
+    </section>
 
-  {{/* Category Breakdown */}}
-  <section class="tracker__section" id="chart-section" hidden aria-label="Spending by category">
-    <h2 class="tracker__section-title">By Category</h2>
-    <div class="cat-chart" id="cat-chart" aria-label="Category spending bars"></div>
-  </section>
+  </div>{{/* /view-tracker */}}
 
-  {{/* Expense Log */}}
-  <section class="tracker__section">
-    <h2 class="tracker__section-title">This Month</h2>
-    <div class="expense-list" id="expense-list" aria-label="Expense log" aria-live="polite">
-      <p class="expense-list__empty">No expenses logged yet.</p>
+
+  {{/* ══════════════════════════════════════════════════════════════════════
+       DASHBOARD VIEW
+  ══════════════════════════════════════════════════════════════════════════ */}}
+  <div id="view-dashboard" hidden>
+
+    <section class="tracker__section">
+      <h2 class="tracker__section-title">Report</h2>
+      <div class="expense-form">
+        <div class="dash-controls">
+          <div class="dash-controls__group">
+            <label class="expense-form__label" for="dash-month">Month</label>
+            <select class="expense-form__select" id="dash-month">
+              <option value="0">January</option>
+              <option value="1">February</option>
+              <option value="2">March</option>
+              <option value="3">April</option>
+              <option value="4">May</option>
+              <option value="5">June</option>
+              <option value="6">July</option>
+              <option value="7">August</option>
+              <option value="8">September</option>
+              <option value="9">October</option>
+              <option value="10">November</option>
+              <option value="11">December</option>
+            </select>
+          </div>
+          <div class="dash-controls__group">
+            <label class="expense-form__label" for="dash-year">Year</label>
+            <select class="expense-form__select" id="dash-year"></select>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="tracker__summary tracker__summary--dash" aria-label="Dashboard summary">
+      <div class="summary-card">
+        <span class="summary-card__label">Total Spent</span>
+        <span class="summary-card__value" id="dash-total">&#8369;0.00</span>
+      </div>
+      <div class="summary-card">
+        <span class="summary-card__label">Entries</span>
+        <span class="summary-card__value" id="dash-count">0</span>
+      </div>
+      <div class="summary-card">
+        <span class="summary-card__label">Avg per Entry</span>
+        <span class="summary-card__value summary-card__value--sm" id="dash-avg">~</span>
+      </div>
+    </section>
+
+    <section class="tracker__section" id="dash-chart-section" hidden>
+      <h2 class="tracker__section-title">By Category</h2>
+      <div class="cat-chart" id="dash-cat-chart"></div>
+    </section>
+
+    <section class="tracker__section" id="dash-entries-section">
+      <h2 class="tracker__section-title">All Entries</h2>
+      <div class="dash-table-wrap">
+        <table class="dash-table" id="dash-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Category</th>
+              <th>Payment</th>
+              <th>Notes</th>
+              <th class="dash-table__num">Amount</th>
+            </tr>
+          </thead>
+          <tbody id="dash-tbody"></tbody>
+          <tfoot>
+            <tr class="dash-table__foot" id="dash-tfoot" hidden>
+              <td colspan="4">Total</td>
+              <td class="dash-table__num" id="dash-tfoot-total"></td>
+            </tr>
+          </tfoot>
+        </table>
+        <p class="expense-list__empty" id="dash-empty" hidden>No entries for this period.</p>
+      </div>
+    </section>
+
+  </div>{{/* /view-dashboard */}}
+
+  {{/* ── Edit Modal ───────────────────────────────────────────────────────── */}}
+  <div class="modal-overlay" id="modal-overlay" hidden aria-modal="true" role="dialog" aria-labelledby="modal-title">
+    <div class="modal">
+      <div class="modal__header">
+        <h2 class="modal__title" id="modal-title">Edit Expense</h2>
+        <button class="modal__close" id="modal-close" aria-label="Close">&#x2715;</button>
+      </div>
+      <div class="modal__body">
+        <input type="hidden" id="modal-id">
+        {{/* Wrap in expense-form so all input styles inherit correctly */}}
+        <div class="expense-form expense-form--modal">
+          <div class="expense-form__row">
+            <div class="expense-form__group">
+              <label class="expense-form__label" for="modal-amt">Amount (&#8369;)</label>
+              <input class="expense-form__input" type="number" id="modal-amt" min="0" step="0.01" autocomplete="off" placeholder="0.00">
+            </div>
+            <div class="expense-form__group">
+              <label class="expense-form__label" for="modal-cat">Category</label>
+              <select class="expense-form__select" id="modal-cat">
+                <option value="">Select a category...</option>
+                <option value="Health">Health</option>
+                <option value="Beauty">Beauty</option>
+                <option value="Food / Groceries">Food / Groceries</option>
+                <option value="Vacation / Relaxation / Eating Out">Vacation / Relaxation / Eating Out</option>
+                <option value="House">House</option>
+                <option value="Self Improvement">Self Improvement</option>
+                <option value="Gadgets">Gadgets</option>
+                <option value="Clothing">Clothing</option>
+                <option value="Transportation">Transportation</option>
+                <option value="Gifts">Gifts</option>
+                <option value="Government Savings">Government Savings</option>
+              </select>
+            </div>
+          </div>
+          <div class="expense-form__row">
+            <div class="expense-form__group">
+              <label class="expense-form__label" for="modal-payment">Mode of Payment</label>
+              <select class="expense-form__select" id="modal-payment">
+                <option value="">Select...</option>
+                <option value="Cash">Cash</option>
+                <option value="Credit Card">Credit Card</option>
+              </select>
+            </div>
+            <div class="expense-form__group">
+              <label class="expense-form__label" for="modal-notes">Notes</label>
+              <input class="expense-form__input" type="text" id="modal-notes" placeholder="What was it for?" autocomplete="off">
+            </div>
+          </div>
+          <p class="expense-form__error" id="modal-error" role="alert" hidden></p>
+        </div>
+      </div>
+      <div class="modal__footer">
+        <button class="btn btn--ghost" id="modal-cancel">Cancel</button>
+        <button class="btn btn--primary" id="modal-save" style="width:auto;">Save Changes</button>
+      </div>
     </div>
-  </section>
+  </div>
 
 </main>

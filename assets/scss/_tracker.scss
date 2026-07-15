@@ -7,20 +7,15 @@
   padding-bottom: $space-2xl;
 }
 
-// ─── Header ───────────────────────────────────────────────────────────────────
-
 .tracker__header {
-  background: $bordeaux-deep;
+  background: $color-header-bg;
   padding: $space-lg $space-lg $space-md;
-
-  @media (min-width: $bp-md) {
-    padding: $space-xl $space-xl $space-lg;
-  }
+  @media (min-width: $bp-md) { padding: $space-xl $space-xl $space-lg; }
 }
 
 .tracker__header-inner {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
   gap: $space-md;
   flex-wrap: wrap;
@@ -39,16 +34,39 @@
   font-size: 0.7rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: $bordeaux-mid;
+  color: $amber-light;
 }
 
-// ─── Month Nav ────────────────────────────────────────────────────────────────
+// ─── Tabs ─────────────────────────────────────────────────────────────────────
 
-.tracker__month-nav {
-  display: flex;
-  align-items: center;
-  gap: $space-sm;
+.tracker__tabs { display: flex; gap: $space-xs; }
+
+.tracker__tab {
+  background: transparent;
+  border: 1px solid rgba($parchment, 0.2);
+  color: rgba($parchment, 0.6);
+  font-family: $font-heading;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.4rem 0.85rem;
+  border-radius: $radius-pill;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+
+  &:hover { color: $parchment; border-color: rgba($parchment, 0.4); }
+  &--active { background: $rust; border-color: $rust; color: $parchment; }
 }
+
+// ─── Month nav ────────────────────────────────────────────────────────────────
+
+.tracker__summary-bar {
+  background: $color-header-bg;
+  padding: 0 $space-lg $space-md;
+  @media (min-width: $bp-md) { padding: 0 $space-xl $space-lg; }
+}
+
+.tracker__month-nav { display: flex; align-items: center; gap: $space-sm; }
 
 .tracker__month-btn {
   background: transparent;
@@ -64,10 +82,7 @@
   transition: background 0.15s, border-color 0.15s;
   flex-shrink: 0;
 
-  &:hover {
-    background: rgba($parchment, 0.1);
-    border-color: rgba($parchment, 0.4);
-  }
+  &:hover { background: rgba($parchment, 0.1); border-color: rgba($parchment, 0.4); }
 }
 
 .tracker__month-label {
@@ -84,10 +99,7 @@
 
 .tracker__section {
   padding: $space-lg $space-lg 0;
-
-  @media (min-width: $bp-md) {
-    padding: $space-xl $space-xl 0;
-  }
+  @media (min-width: $bp-md) { padding: $space-xl $space-xl 0; }
 }
 
 .tracker__section-title {
@@ -96,6 +108,43 @@
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: $olive;
+  color: $color-label;
   margin-bottom: $space-md;
+}
+
+// ─── Header right cluster (tabs + sync status) ────────────────────────────────
+
+.tracker__header-right {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+}
+
+// ─── Sync status pill ─────────────────────────────────────────────────────────
+
+.sync-status {
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: $radius-pill;
+  border: 1px solid transparent;
+  transition: opacity 0.3s;
+
+  &--syncing {
+    color: $amber-light;
+    border-color: rgba($amber-light, 0.3);
+  }
+
+  &--online {
+    color: rgba($parchment, 0.45);
+    border-color: transparent;
+  }
+
+  &--offline {
+    color: $rust-mid;
+    border-color: rgba($rust-mid, 0.3);
+    background: $rust-faint;
+  }
 }

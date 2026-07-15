@@ -3,11 +3,9 @@
 .tracker__summary {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  background: $bordeaux;
+  background: $bark-mid;
 
-  @media (max-width: $bp-xs) {
-    grid-template-columns: 1fr 1fr;
-  }
+  @media (max-width: $bp-xs) { grid-template-columns: 1fr 1fr; }
 }
 
 .summary-card {
@@ -17,9 +15,7 @@
   gap: 0.2rem;
   border-right: 1px solid rgba($parchment, 0.1);
 
-  &:last-child {
-    border-right: none;
-  }
+  &:last-child { border-right: none; }
 
   @media (max-width: $bp-xs) {
     &:last-child {
@@ -39,13 +35,13 @@
 
   &__value {
     font-family: $font-heading;
-    font-size: 1.25rem;
+    font-size: clamp(1rem, 4vw, 1.35rem);
     font-weight: 600;
     color: $parchment;
     line-height: 1.1;
 
     &--sm {
-      font-size: 0.8rem;
+      font-size: clamp(0.7rem, 2.5vw, 0.85rem);
       padding-top: 0.2rem;
       word-break: break-word;
     }

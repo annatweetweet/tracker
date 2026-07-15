@@ -1,18 +1,57 @@
-// ─── Colors ───────────────────────────────────────────────────────────────────
+// ─── Neutrals ─────────────────────────────────────────────────────────────────
 
-$parchment:       #F2EDE4;
-$parchment-dark:  #E8E2D8;
-$shell:           #EAE5DC;
-$shell-dark:      #DDD8CE;
-$fog:             #CEC9C0;
-$fog-light:       #DDD8D0;
-$bordeaux:        #6B2737;
-$bordeaux-deep:   #2C1A1F;
-$bordeaux-mid:    #8B3D4F;
-$bordeaux-faint:  #F0E8EA;
-$olive:           #5A5E3F;
-$olive-mid:       #7A7F5A;
-$olive-light:     #A0A47A;
+$parchment:      #F5EFE4;   // warm off-white page background
+$parchment-dark: #EDE5D8;
+$shell:          #E8DECE;   // card surfaces
+$shell-dark:     #DDD0BE;
+$fog:            #C8BBA8;   // borders, dividers
+$fog-light:      #DDD0BE;
+
+// ─── Bark (dark surfaces) ─────────────────────────────────────────────────────
+
+$bark:           #1C1409;   // header/dark bg              ~17:1 on $parchment
+$bark-mid:       #2E2010;   // secondary dark surfaces
+
+// ─── Rust (primary action) ────────────────────────────────────────────────────
+
+$rust:           #7A3018;   // buttons, amounts, active     ~6.8:1 on $parchment
+$rust-deep:      #5A2010;   // hover state                  ~9.5:1 on $parchment
+$rust-mid:       #A04828;   // mid-tone accent
+$rust-faint:     #F5E8E3;   // tinted bg for errors / badges
+
+// ─── Amber (secondary / warm highlight) ──────────────────────────────────────
+
+$amber:          #A0621A;   // secondary labels, chart fill  ~5.1:1 on $parchment
+$amber-light:    #C48A3A;   // chart alt fill (not used for text on white)
+$amber-faint:    #FBF0DC;   // warm tinted bg
+
+// ─── Moss (muted text / labels) ───────────────────────────────────────────────
+
+$moss:           #3E4832;   // section titles, labels        ~7.8:1 on $parchment
+$moss-mid:       #5E6A50;   // secondary text                ~5.0:1 on $parchment
+$moss-light:     #8A9478;   // captions, placeholder         ~3.5:1 on $parchment (large text only)
+
+// ─── Semantic aliases ─────────────────────────────────────────────────────────
+
+$color-primary:       $rust;
+$color-primary-deep:  $rust-deep;
+$color-primary-mid:   $rust-mid;
+$color-primary-faint: $rust-faint;
+
+$color-header-bg:     $bark;
+$color-summary-bg:    $bark-mid;
+
+$color-text:          $bark;
+$color-text-muted:    $moss-mid;
+$color-text-subtle:   $moss-light;
+
+$color-label:         $moss;
+$color-accent:        $amber;
+$color-accent-light:  $amber-light;
+$color-accent-faint:  $amber-faint;
+
+$color-danger:        $rust;
+$color-danger-faint:  $rust-faint;
 
 // ─── Typography ───────────────────────────────────────────────────────────────
 

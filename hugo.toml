@@ -16,4 +16,4 @@ title = "Anna's Money Tracker"
 [minify]
   disableCSS = false
   disableHTML = false
-  disableJS = false
+  disableJS = true

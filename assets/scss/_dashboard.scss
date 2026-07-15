@@ -1,0 +1,123 @@
+@import 'tokens';
+
+// ─── Controls ─────────────────────────────────────────────────────────────────
+
+.dash-controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-sm;
+
+  @media (min-width: $bp-sm) {
+    grid-template-columns: 2fr 1fr;
+    max-width: 380px;
+  }
+
+  &__group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+}
+
+// ─── Dashboard section spacing fix ───────────────────────────────────────────
+// .expense-form inside .tracker__section already gets top padding;
+// add explicit bottom padding so it breathes before the summary bar.
+
+#view-dashboard .tracker__section:first-child {
+  padding-bottom: $space-lg;
+
+  @media (min-width: $bp-md) {
+    padding-bottom: $space-xl;
+  }
+}
+
+// ─── Summary override ─────────────────────────────────────────────────────────
+
+.tracker__summary--dash {
+  border-top: 3px solid $amber;
+}
+
+// ─── Table ────────────────────────────────────────────────────────────────────
+
+.dash-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: $radius-md;
+  border: 1px solid $fog-light;
+}
+
+.dash-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+
+  th {
+    font-family: $font-heading;
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: $color-label;
+    background: $shell;
+    padding: 0.6rem 0.85rem;
+    text-align: left;
+    white-space: nowrap;
+    border-bottom: 1px solid $fog-light;
+  }
+
+  td {
+    padding: 0.65rem 0.85rem;
+    color: $color-text;
+    border-bottom: 1px solid $fog-light;
+    vertical-align: middle;
+  }
+
+  tbody tr {
+    transition: background 0.1s;
+    &:last-child td { border-bottom: none; }
+    &:hover td { background: $shell; }
+  }
+
+  &__num {
+    text-align: right;
+    font-family: $font-heading;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: $color-primary;
+    white-space: nowrap;
+  }
+
+  &__date {
+    white-space: nowrap;
+    color: $color-text-muted;
+    font-size: 0.78rem;
+  }
+
+  &__note {
+    color: $color-text-muted;
+    max-width: 180px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__foot {
+    td {
+      font-family: $font-heading;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: $color-label;
+      background: $shell;
+      border-top: 1px solid $fog-light;
+      border-bottom: none;
+      padding: 0.6rem 0.85rem;
+    }
+
+    .dash-table__num {
+      color: $color-primary;
+      font-size: 0.85rem;
+    }
+  }
+}

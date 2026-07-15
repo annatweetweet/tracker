@@ -2,37 +2,23 @@
 
 *,
 *::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+*::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-html {
-  font-size: 16px;
-  -webkit-text-size-adjust: 100%;
-}
+html { font-size: 16px; -webkit-text-size-adjust: 100%; }
 
 body {
   font-family: $font-body;
   background-color: $parchment;
-  color: $bordeaux-deep;
+  color: $color-text;
   line-height: 1.6;
   min-width: 320px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4 {
-  font-family: $font-heading;
-  font-weight: 600;
-  line-height: 1.2;
-}
-
+h1, h2, h3, h4 { font-family: $font-heading; font-weight: 600; line-height: 1.2; }
 button { font-family: $font-body; cursor: pointer; }
 input, select, textarea { font-family: $font-body; }
-
-// ─── Button ───────────────────────────────────────────────────────────────────
 
 .btn {
   display: inline-flex;
@@ -52,10 +38,17 @@ input, select, textarea { font-family: $font-body; }
 
   &--primary {
     width: 100%;
-    background: $bordeaux;
+    background: $color-primary;
     color: $parchment;
     margin-top: $space-sm;
+    &:hover { background: $color-primary-deep; }
+  }
 
-    &:hover { background: $bordeaux-deep; }
+  &--ghost {
+    background: transparent;
+    border: 1px solid $fog;
+    color: $moss-mid;
+    width: auto;
+    &:hover { border-color: $color-primary; color: $color-primary; }
   }
 }

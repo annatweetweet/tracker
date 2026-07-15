@@ -10,15 +10,12 @@
     grid-template-columns: 110px 1fr 72px;
     align-items: center;
     gap: $space-sm;
-
-    @media (max-width: $bp-xs) {
-      grid-template-columns: 80px 1fr 60px;
-    }
+    @media (max-width: $bp-xs) { grid-template-columns: 80px 1fr 60px; }
   }
 
   &__label {
     font-size: 0.72rem;
-    color: $olive;
+    color: $color-text-muted;
     font-weight: 500;
     white-space: nowrap;
     overflow: hidden;
@@ -27,7 +24,7 @@
 
   &__track {
     height: 6px;
-    background: $shell;
+    background: $shell-dark;
     border-radius: $radius-pill;
     overflow: hidden;
   }
@@ -35,18 +32,18 @@
   &__fill {
     height: 100%;
     border-radius: $radius-pill;
-    background: $bordeaux;
+    background: $rust;
     transition: width 0.35s ease;
 
-    &--alt   { background: $olive; }
-    &--faint { background: $bordeaux-mid; }
+    &--alt   { background: $amber; }
+    &--faint { background: $moss-mid; }
   }
 
   &__value {
     font-family: $font-heading;
     font-size: 0.68rem;
     font-weight: 600;
-    color: $bordeaux-deep;
+    color: $color-text;
     text-align: right;
   }
 }

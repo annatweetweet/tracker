@@ -8,7 +8,7 @@
     padding: $space-xl $space-md;
     text-align: center;
     font-size: 0.85rem;
-    color: $olive-light;
+    color: $color-text-subtle;
     font-style: italic;
   }
 }
@@ -41,15 +41,29 @@
   &__cat {
     font-size: 0.85rem;
     font-weight: 600;
-    color: $bordeaux-deep;
+    color: $color-text;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
+  &__payment {
+    display: inline-block;
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: $amber;
+    background: $amber-faint;
+    border: 1px solid rgba($amber, 0.25);
+    border-radius: $radius-pill;
+    padding: 1px 7px;
+    margin-top: 3px;
+  }
+
   &__note {
     font-size: 0.75rem;
-    color: $olive-mid;
+    color: $color-text-muted;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -58,7 +72,7 @@
 
   &__date {
     font-size: 0.7rem;
-    color: $fog;
+    color: $moss-light;
     margin-top: 2px;
   }
 
@@ -74,22 +88,42 @@
     font-family: $font-heading;
     font-size: 0.9rem;
     font-weight: 600;
-    color: $bordeaux;
+    color: $color-primary;
+  }
+
+  &__actions { display: flex; gap: 4px; }
+
+  &__edit {
+    background: $amber-faint;
+    border: 1px solid rgba($amber, 0.3);
+    color: $amber;
+    font-size: 0.75rem;
+    line-height: 1;
+    padding: 4px 7px;
+    border-radius: $radius-sm;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+
+    &:hover {
+      background: $amber;
+      border-color: $amber;
+      color: $parchment;
+    }
   }
 
   &__delete {
-    background: none;
-    border: none;
-    color: $fog;
-    font-size: 0.8rem;
+    background: $rust-faint;
+    border: 1px solid rgba($rust, 0.25);
+    color: $rust-mid;
+    font-size: 0.75rem;
     line-height: 1;
-    padding: 2px 4px;
+    padding: 4px 7px;
     border-radius: $radius-sm;
-    transition: color 0.15s, background 0.15s;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
 
     &:hover {
-      color: $bordeaux;
-      background: $bordeaux-faint;
+      background: $rust;
+      border-color: $rust;
+      color: $parchment;
     }
   }
 }
