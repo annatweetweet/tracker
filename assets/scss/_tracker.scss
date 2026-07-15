@@ -1,0 +1,101 @@
+@import 'tokens';
+
+.tracker {
+  max-width: 720px;
+  margin: 0 auto;
+  min-height: 100vh;
+  padding-bottom: $space-2xl;
+}
+
+// ─── Header ───────────────────────────────────────────────────────────────────
+
+.tracker__header {
+  background: $bordeaux-deep;
+  padding: $space-lg $space-lg $space-md;
+
+  @media (min-width: $bp-md) {
+    padding: $space-xl $space-xl $space-lg;
+  }
+}
+
+.tracker__header-inner {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: $space-md;
+  flex-wrap: wrap;
+}
+
+.tracker__site-title {
+  font-family: $font-heading;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: $parchment;
+  letter-spacing: 0.03em;
+  margin-bottom: 0.15rem;
+}
+
+.tracker__site-sub {
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $bordeaux-mid;
+}
+
+// ─── Month Nav ────────────────────────────────────────────────────────────────
+
+.tracker__month-nav {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+}
+
+.tracker__month-btn {
+  background: transparent;
+  border: 1px solid rgba($parchment, 0.2);
+  color: $parchment;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, border-color 0.15s;
+  flex-shrink: 0;
+
+  &:hover {
+    background: rgba($parchment, 0.1);
+    border-color: rgba($parchment, 0.4);
+  }
+}
+
+.tracker__month-label {
+  font-family: $font-heading;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: $parchment;
+  letter-spacing: 0.04em;
+  min-width: 130px;
+  text-align: center;
+}
+
+// ─── Sections ─────────────────────────────────────────────────────────────────
+
+.tracker__section {
+  padding: $space-lg $space-lg 0;
+
+  @media (min-width: $bp-md) {
+    padding: $space-xl $space-xl 0;
+  }
+}
+
+.tracker__section-title {
+  font-family: $font-heading;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: $olive;
+  margin-bottom: $space-md;
+}

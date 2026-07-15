@@ -1,0 +1,61 @@
+@import 'tokens';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: $font-body;
+  background-color: $parchment;
+  color: $bordeaux-deep;
+  line-height: 1.6;
+  min-width: 320px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4 {
+  font-family: $font-heading;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+button { font-family: $font-body; cursor: pointer; }
+input, select, textarea { font-family: $font-body; }
+
+// ─── Button ───────────────────────────────────────────────────────────────────
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: $radius-md;
+  font-family: $font-heading;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.75rem 1.25rem;
+  transition: background 0.15s ease, transform 0.1s ease;
+
+  &:active { transform: scale(0.98); }
+
+  &--primary {
+    width: 100%;
+    background: $bordeaux;
+    color: $parchment;
+    margin-top: $space-sm;
+
+    &:hover { background: $bordeaux-deep; }
+  }
+}

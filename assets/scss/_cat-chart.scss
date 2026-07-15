@@ -1,0 +1,52 @@
+@import 'tokens';
+
+.cat-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+
+  &__row {
+    display: grid;
+    grid-template-columns: 110px 1fr 72px;
+    align-items: center;
+    gap: $space-sm;
+
+    @media (max-width: $bp-xs) {
+      grid-template-columns: 80px 1fr 60px;
+    }
+  }
+
+  &__label {
+    font-size: 0.72rem;
+    color: $olive;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__track {
+    height: 6px;
+    background: $shell;
+    border-radius: $radius-pill;
+    overflow: hidden;
+  }
+
+  &__fill {
+    height: 100%;
+    border-radius: $radius-pill;
+    background: $bordeaux;
+    transition: width 0.35s ease;
+
+    &--alt   { background: $olive; }
+    &--faint { background: $bordeaux-mid; }
+  }
+
+  &__value {
+    font-family: $font-heading;
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: $bordeaux-deep;
+    text-align: right;
+  }
+}

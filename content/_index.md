@@ -1,4 +1,4 @@
 ---
-title: "Anna's Money Tracker · AGB"
-description: "A private monthly expense ledger."
+title: "Money Tracker"
+description: "Anna's personal expense tracker"
 ---

@@ -1,0 +1,42 @@
+// ─── Colors ───────────────────────────────────────────────────────────────────
+
+$parchment:       #F2EDE4;
+$parchment-dark:  #E8E2D8;
+$shell:           #EAE5DC;
+$shell-dark:      #DDD8CE;
+$fog:             #CEC9C0;
+$fog-light:       #DDD8D0;
+$bordeaux:        #6B2737;
+$bordeaux-deep:   #2C1A1F;
+$bordeaux-mid:    #8B3D4F;
+$bordeaux-faint:  #F0E8EA;
+$olive:           #5A5E3F;
+$olive-mid:       #7A7F5A;
+$olive-light:     #A0A47A;
+
+// ─── Typography ───────────────────────────────────────────────────────────────
+
+$font-heading: 'Unbounded', sans-serif;
+$font-body:    'Albert Sans', sans-serif;
+
+// ─── Spacing ──────────────────────────────────────────────────────────────────
+
+$space-xs:  0.25rem;
+$space-sm:  0.5rem;
+$space-md:  1rem;
+$space-lg:  1.5rem;
+$space-xl:  2rem;
+$space-2xl: 3rem;
+
+// ─── Radii ────────────────────────────────────────────────────────────────────
+
+$radius-sm:   4px;
+$radius-md:   8px;
+$radius-lg:   14px;
+$radius-pill: 999px;
+
+// ─── Breakpoints ──────────────────────────────────────────────────────────────
+
+$bp-xs: 380px;
+$bp-sm: 480px;
+$bp-md: 768px;

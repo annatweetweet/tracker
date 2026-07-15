@@ -1,14 +1,19 @@
-baseURL = "/"
+baseURL = "https://agb.com/"
 languageCode = "en-us"
-title = "Anna's Money Tracker · AGB"
-theme = "agb"
+title = "Anna's Money Tracker"
+
+[permalinks]
+  [permalinks.page]
+    tracker = "/tracker/:slug/"
 
 [params]
-  description = "A private expense ledger for AGB"
+  description = "Personal expense tracker for AGB"
   author = "Anna"
 
-[markup.goldmark.renderer]
-  unsafe = true
+[build]
+  writeStats = true
 
-[build.environment]
-  HUGO_VERSION = "0.160.0"
+[minify]
+  disableCSS = false
+  disableHTML = false
+  disableJS = false
