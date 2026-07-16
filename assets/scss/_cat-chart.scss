@@ -1,5 +1,7 @@
 @import 'tokens';
 
+// ─── Bar chart (dashboard) ────────────────────────────────────────────────────
+
 .cat-chart {
   display: flex;
   flex-direction: column;
@@ -45,5 +47,88 @@
     font-weight: 600;
     color: $color-text;
     text-align: right;
+  }
+}
+
+// ─── Donut chart (tracker) ────────────────────────────────────────────────────
+
+.donut-chart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-lg;
+  animation: fade-in 0.4s ease both;
+
+  @media (min-width: $bp-sm) {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  &__svg-wrap {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__svg {
+    width: 170px;
+    height: 170px;
+    filter: drop-shadow(0 4px 16px rgba($rust, 0.12));
+    overflow: visible;
+  }
+
+  &__legend {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    width: 100%;
+    min-width: 0;
+  }
+
+  &__legend-item {
+    display: grid;
+    grid-template-columns: 10px 1fr auto auto;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.25rem 0;
+    border-bottom: 1px solid $fog-light;
+    transition: opacity 0.15s;
+
+    &:last-child { border-bottom: none; }
+  }
+
+  &__legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  &__legend-name {
+    font-size: 0.75rem;
+    color: $color-text-muted;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+  }
+
+  &__legend-pct {
+    font-size: 0.65rem;
+    color: $moss-light;
+    font-family: $font-heading;
+    white-space: nowrap;
+  }
+
+  &__legend-val {
+    font-family: $font-heading;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: $color-text;
+    text-align: right;
+    white-space: nowrap;
+    min-width: 60px;
   }
 }

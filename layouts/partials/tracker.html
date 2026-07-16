@@ -152,12 +152,26 @@
     {{/* Category Breakdown */}}
     <section class="tracker__section" id="chart-section" hidden aria-label="Spending by category">
       <h2 class="tracker__section-title">By Category</h2>
-      <div class="cat-chart" id="cat-chart"></div>
+      <div class="donut-chart" id="cat-chart"></div>
     </section>
 
     {{/* Expense Log */}}
     <section class="tracker__section">
-      <h2 class="tracker__section-title">This Month</h2>
+      <div class="tracker__section-header">
+        <h2 class="tracker__section-title">This Month</h2>
+        <button class="btn btn--ghost btn--sm" id="select-btn" type="button">Select</button>
+      </div>
+      <div class="bulk-bar" id="bulk-bar" hidden>
+        <label class="bulk-bar__all">
+          <input type="checkbox" id="select-all-check">
+          <span>All</span>
+        </label>
+        <span class="bulk-bar__count" id="bulk-count">0 selected</span>
+        <div class="bulk-bar__actions">
+          <button class="btn btn--danger btn--sm" id="bulk-delete-btn" type="button">Delete</button>
+          <button class="btn btn--ghost btn--sm" id="bulk-cancel-btn" type="button">Cancel</button>
+        </div>
+      </div>
       <div class="expense-list" id="expense-list" aria-label="Expense log" aria-live="polite">
         <p class="expense-list__empty">No expenses logged yet.</p>
       </div>

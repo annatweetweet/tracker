@@ -1,6 +1,6 @@
 @import 'tokens';
 
-// ─── Budget progress bars ─────────────────────────────────────────────────────
+// ─── Budget progress bars (XP bar style) ──────────────────────────────────────
 
 .budget-list {
   display: flex;
@@ -13,7 +13,7 @@
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    margin-bottom: 5px;
+    margin-bottom: 6px;
   }
 
   &__cat {
@@ -24,40 +24,61 @@
 
   &__amounts {
     font-family: $font-heading;
-    font-size: 0.7rem;
+    font-size: 0.68rem;
     color: $color-text-muted;
   }
 
   &__of {
     font-family: $font-body;
     font-weight: 400;
-    font-size: 0.65rem;
+    font-size: 0.62rem;
     color: $fog;
     margin: 0 2px;
   }
 
   &__track {
-    height: 8px;
+    height: 10px;
     background: $shell-dark;
     border-radius: $radius-pill;
     overflow: hidden;
+    position: relative;
   }
 
   &__fill {
     height: 100%;
     border-radius: $radius-pill;
-    background: $color-primary;
-    transition: width 0.4s ease;
+    background: linear-gradient(90deg, $rust 0%, $bordeaux-mid 100%);
+    transition: width 0.5s cubic-bezier(0.34, 1.26, 0.64, 1);
+    animation: bar-grow 0.8s cubic-bezier(0.34, 1.26, 0.64, 1) both;
+    position: relative;
+    overflow: hidden;
 
-    &--warn { background: $amber; }
-    &--over { background: $rust; }
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -60%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      animation: bar-shimmer 2.5s ease-in-out infinite;
+    }
+
+    &--warn {
+      background: linear-gradient(90deg, $amber 0%, $rose-gold 100%);
+    }
+
+    &--over {
+      background: linear-gradient(90deg, $rust 0%, $bordeaux 100%);
+    }
   }
 
   &__warning {
-    font-size: 0.7rem;
-    color: $rust;
-    margin-top: 3px;
-    font-weight: 500;
+    font-size: 0.68rem;
+    color: $bordeaux;
+    margin-top: 4px;
+    font-weight: 600;
+    font-style: italic;
   }
 }
 
@@ -71,26 +92,26 @@
 
 // ─── Modal wide variant ───────────────────────────────────────────────────────
 
-.modal--wide {
-  max-width: 560px;
-}
+.modal--wide { max-width: 560px; }
 
 // ─── Badges ───────────────────────────────────────────────────────────────────
 
 .badge {
   display: inline-flex;
   align-items: center;
-  font-size: 0.65rem;
+  font-size: 0.62rem;
   font-weight: 700;
-  padding: 0 5px;
+  padding: 1px 6px;
   border-radius: $radius-pill;
   vertical-align: middle;
-  margin-left: 4px;
+  margin-left: 5px;
+  letter-spacing: 0.04em;
 
   &--recurring {
     background: $amber-faint;
     color: $amber;
-    border: 1px solid rgba($amber, 0.3);
+    border: 1px solid rgba($amber, 0.35);
+    box-shadow: 0 0 6px rgba($amber, 0.15);
   }
 }
 
@@ -117,7 +138,5 @@
     color: $color-text;
   }
 
-  .budget-bar__track {
-    height: 10px;
-  }
+  .budget-bar__track { height: 12px; }
 }

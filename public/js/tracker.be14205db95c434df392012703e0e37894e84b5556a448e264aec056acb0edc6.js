@@ -160,56 +160,6 @@
     }).join('');
   }
 
-  // ─── Donut chart ─────────────────────────────────────────────────────────────
-
-  function buildDonutChart(container, sorted, total) {
-    if (!sorted.length) { container.innerHTML = ''; return; }
-    var R = 48, CX = 60, CY = 60, SW = 13;
-    var circ = 2 * Math.PI * R;
-    var segs = '', legend = '';
-    var offset = circ / 4;
-
-    sorted.forEach(function(pair, i) {
-      var cat = pair[0], val = pair[1];
-      var frac = val / total;
-      var len = frac * circ;
-      var gap = Math.min(1.5, len * 0.04);
-      var drawLen = Math.max(0, len - gap);
-      var color = CHART_COLORS[i % CHART_COLORS.length];
-      var pct = (frac * 100).toFixed(0);
-
-      segs += '<circle cx="'+CX+'" cy="'+CY+'" r="'+R+'" fill="none"'+
-        ' stroke="'+esc(color)+'"'+
-        ' stroke-width="'+SW+'"'+
-        ' stroke-dasharray="'+drawLen.toFixed(2)+' '+(circ-drawLen).toFixed(2)+'"'+
-        ' stroke-dashoffset="'+offset.toFixed(2)+'"'+
-      '/>';
-      offset -= len;
-
-      legend += '<div class="donut-chart__legend-item">'+
-        '<span class="donut-chart__legend-dot" style="background:'+esc(color)+'"></span>'+
-        '<span class="donut-chart__legend-name" title="'+esc(cat)+'">'+esc(cat.split('/')[0].trim())+'</span>'+
-        '<span class="donut-chart__legend-pct">'+pct+'%</span>'+
-        '<span class="donut-chart__legend-val">'+peso(val)+'</span>'+
-      '</div>';
-    });
-
-    container.innerHTML =
-      '<div class="donut-chart__svg-wrap">'+
-        '<svg class="donut-chart__svg" viewBox="0 0 120 120" aria-hidden="true">'+
-          '<circle cx="'+CX+'" cy="'+CY+'" r="'+R+'" fill="none" stroke="#DDD0BE" stroke-width="'+SW+'"/>'+
-          segs+
-          '<text x="'+CX+'" y="'+(CY-5)+'" text-anchor="middle"'+
-            ' font-family="Albert Sans, sans-serif" font-size="5.5" font-weight="500"'+
-            ' fill="#5E6A50" letter-spacing="1">TOTAL</text>'+
-          '<text x="'+CX+'" y="'+(CY+7)+'" text-anchor="middle"'+
-            ' font-family="Unbounded, sans-serif" font-size="6.5" font-weight="700"'+
-            ' fill="#1C1409">'+peso(total)+'</text>'+
-        '</svg>'+
-      '</div>'+
-      '<div class="donut-chart__legend">'+legend+'</div>';
-  }
-
   // ─── Spending insights ───────────────────────────────────────────────────────
 
   function renderInsights(monthly) {
@@ -389,41 +339,6 @@
     var dismissedKey = CARRYOVER_KEY+'_'+viewYear+'_'+viewMonth;
     localStorage.setItem(dismissedKey, '1');
     elCarryoverBar.hidden = true;
-  }
-
-  // ─── Bulk select ─────────────────────────────────────────────────────────────
-
-  function enterSelectMode() {
-    selectMode = true;
-    selectedIds = {};
-    elBulkBar.hidden = false;
-    elSelectBtn.textContent = 'Done';
-    updateBulkBar();
-    renderTracker();
-  }
-
-  function exitSelectMode() {
-    selectMode = false;
-    selectedIds = {};
-    elBulkBar.hidden = true;
-    elSelectBtn.textContent = 'Select';
-    if(elSelectAllCheck) elSelectAllCheck.checked = false;
-    renderTracker();
-  }
-
-  function updateBulkBar() {
-    var count = Object.keys(selectedIds).length;
-    if(elBulkCount) elBulkCount.textContent = count+' selected';
-  }
-
-  function deleteSelected() {
-    var ids = Object.keys(selectedIds).map(Number);
-    if(!ids.length) return;
-    if(!confirm('Delete '+ids.length+' expense'+(ids.length>1?'s':'')+'?')) return;
-    ids.forEach(function(id){ sbDelete(id).catch(function(){}); });
-    expenses = expenses.filter(function(e){ return !selectedIds[e.id]; });
-    saveLocal();
-    exitSelectMode();
   }
 
   // ─── Trend chart ─────────────────────────────────────────────────────────────
@@ -666,24 +581,19 @@
     checkCarryover();
     renderBudgetSection(monthly);
 
-    if(sorted.length){elChartSection.hidden=false;buildDonutChart(elCatChart,sorted,total);}
+    if(sorted.length){elChartSection.hidden=false;buildCatChart(elCatChart,sorted);}
     else{elChartSection.hidden=true;elCatChart.innerHTML='';}
 
     if(!monthly.length){elExpenseList.innerHTML='<p class="expense-list__empty">No expenses logged yet.</p>';return;}
 
     var byDate=monthly.slice().sort(function(a,b){return new Date(b.date)-new Date(a.date);});
-    elExpenseList.className='expense-list'+(selectMode?' expense-list--select-mode':'');
-    elExpenseList.innerHTML=byDate.map(function(e,i){
+    elExpenseList.innerHTML=byDate.map(function(e){
       var installBadge='';
       if(e.isInstallment&&e.installmentMonths){
         installBadge='<span class="badge badge--installment" title="Installment">'+
           (e.installmentCurrent||1)+'/'+e.installmentMonths+'</span>';
       }
-      var checkboxHtml=selectMode
-        ?'<div class="expense-item__checkbox"><input type="checkbox" class="expense-item__check" data-id="'+e.id+'"'+(selectedIds[e.id]?' checked':'')+' aria-label="Select"></div>'
-        :'';
-      return '<article class="expense-item'+(selectedIds[e.id]?' expense-item--selected':'')+'" data-id="'+e.id+'" style="animation-delay:'+(i*0.04)+'s">'+
-        checkboxHtml+
+      return '<article class="expense-item" data-id="'+e.id+'">'+
         '<div class="expense-item__icon" aria-hidden="true">'+(CAT_EMOJI[e.category]||'•')+'</div>'+
         '<div class="expense-item__body">'+
           '<div class="expense-item__cat">'+esc(e.category)+
@@ -696,11 +606,10 @@
         '</div>'+
         '<div class="expense-item__right">'+
           '<span class="expense-item__amount">'+peso(e.amount)+'</span>'+
-          (selectMode?'':
-            '<div class="expense-item__actions">'+
-              '<button class="expense-item__edit" data-id="'+e.id+'" aria-label="Edit">&#9998;</button>'+
-              '<button class="expense-item__delete" data-id="'+e.id+'" aria-label="Delete">&#x2715;</button>'+
-            '</div>')+
+          '<div class="expense-item__actions">'+
+            '<button class="expense-item__edit" data-id="'+e.id+'" aria-label="Edit">&#9998;</button>'+
+            '<button class="expense-item__delete" data-id="'+e.id+'" aria-label="Delete">&#x2715;</button>'+
+          '</div>'+
         '</div>'+
       '</article>';
     }).join('');
@@ -785,6 +694,13 @@
   elCancelEdit.addEventListener('click',function(){elCancelEdit.hidden=true;elFormTitle.textContent='Add Expense';elAddBtn.textContent='Add Expense';resetForm();});
   elBudgetBtn.addEventListener('click',openBudgetModal);
 
+  elExpenseList.addEventListener('click',function(e){
+    var btn=e.target.closest('button[data-id]'); if(!btn) return;
+    var id=Number(btn.dataset.id);
+    if(btn.classList.contains('expense-item__delete')) deleteExpense(id);
+    if(btn.classList.contains('expense-item__edit'))   openEditModal(id);
+  });
+
   elModalClose.addEventListener('click',closeEditModal);
   elModalCancel.addEventListener('click',closeEditModal);
   elModalSave.addEventListener('click',saveEdit);
@@ -803,41 +719,6 @@
 
   elCarryoverConfirmAll.addEventListener('click',confirmCarryover);
   elCarryoverDismiss.addEventListener('click',dismissCarryover);
-
-  elSelectBtn.addEventListener('click',function(){ if(selectMode) exitSelectMode(); else enterSelectMode(); });
-  elBulkCancelBtn.addEventListener('click',exitSelectMode);
-  elBulkDeleteBtn.addEventListener('click',deleteSelected);
-  elSelectAllCheck.addEventListener('change',function(){
-    var monthly=monthlyExp(viewYear,viewMonth);
-    if(elSelectAllCheck.checked){ monthly.forEach(function(e){ selectedIds[e.id]=true; }); }
-    else{ selectedIds={}; }
-    updateBulkBar(); renderTracker();
-  });
-
-  elExpenseList.addEventListener('click',function(e){
-    var check=e.target.closest('.expense-item__check');
-    if(check){
-      var id=Number(check.dataset.id);
-      if(check.checked){ selectedIds[id]=true; }else{ delete selectedIds[id]; }
-      updateBulkBar();
-      var art=check.closest('.expense-item');
-      if(art) art.classList.toggle('expense-item--selected',!!selectedIds[id]);
-      return;
-    }
-    if(selectMode){
-      var art2=e.target.closest('.expense-item'); if(!art2) return;
-      var id2=Number(art2.dataset.id);
-      if(selectedIds[id2]){ delete selectedIds[id2]; art2.classList.remove('expense-item--selected'); }
-      else{ selectedIds[id2]=true; art2.classList.add('expense-item--selected'); }
-      var chk=art2.querySelector('.expense-item__check'); if(chk) chk.checked=!!selectedIds[id2];
-      updateBulkBar();
-      return;
-    }
-    var btn=e.target.closest('button[data-id]'); if(!btn) return;
-    var id3=Number(btn.dataset.id);
-    if(btn.classList.contains('expense-item__delete')) deleteExpense(id3);
-    if(btn.classList.contains('expense-item__edit'))   openEditModal(id3);
-  });
 
   elCsvExportBtn.addEventListener('click',exportCSV);
 

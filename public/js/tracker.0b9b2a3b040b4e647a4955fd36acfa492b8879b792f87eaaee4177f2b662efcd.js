@@ -785,6 +785,13 @@
   elCancelEdit.addEventListener('click',function(){elCancelEdit.hidden=true;elFormTitle.textContent='Add Expense';elAddBtn.textContent='Add Expense';resetForm();});
   elBudgetBtn.addEventListener('click',openBudgetModal);
 
+  elExpenseList.addEventListener('click',function(e){
+    var btn=e.target.closest('button[data-id]'); if(!btn) return;
+    var id=Number(btn.dataset.id);
+    if(btn.classList.contains('expense-item__delete')) deleteExpense(id);
+    if(btn.classList.contains('expense-item__edit'))   openEditModal(id);
+  });
+
   elModalClose.addEventListener('click',closeEditModal);
   elModalCancel.addEventListener('click',closeEditModal);
   elModalSave.addEventListener('click',saveEdit);
@@ -803,41 +810,6 @@
 
   elCarryoverConfirmAll.addEventListener('click',confirmCarryover);
   elCarryoverDismiss.addEventListener('click',dismissCarryover);
-
-  elSelectBtn.addEventListener('click',function(){ if(selectMode) exitSelectMode(); else enterSelectMode(); });
-  elBulkCancelBtn.addEventListener('click',exitSelectMode);
-  elBulkDeleteBtn.addEventListener('click',deleteSelected);
-  elSelectAllCheck.addEventListener('change',function(){
-    var monthly=monthlyExp(viewYear,viewMonth);
-    if(elSelectAllCheck.checked){ monthly.forEach(function(e){ selectedIds[e.id]=true; }); }
-    else{ selectedIds={}; }
-    updateBulkBar(); renderTracker();
-  });
-
-  elExpenseList.addEventListener('click',function(e){
-    var check=e.target.closest('.expense-item__check');
-    if(check){
-      var id=Number(check.dataset.id);
-      if(check.checked){ selectedIds[id]=true; }else{ delete selectedIds[id]; }
-      updateBulkBar();
-      var art=check.closest('.expense-item');
-      if(art) art.classList.toggle('expense-item--selected',!!selectedIds[id]);
-      return;
-    }
-    if(selectMode){
-      var art2=e.target.closest('.expense-item'); if(!art2) return;
-      var id2=Number(art2.dataset.id);
-      if(selectedIds[id2]){ delete selectedIds[id2]; art2.classList.remove('expense-item--selected'); }
-      else{ selectedIds[id2]=true; art2.classList.add('expense-item--selected'); }
-      var chk=art2.querySelector('.expense-item__check'); if(chk) chk.checked=!!selectedIds[id2];
-      updateBulkBar();
-      return;
-    }
-    var btn=e.target.closest('button[data-id]'); if(!btn) return;
-    var id3=Number(btn.dataset.id);
-    if(btn.classList.contains('expense-item__delete')) deleteExpense(id3);
-    if(btn.classList.contains('expense-item__edit'))   openEditModal(id3);
-  });
 
   elCsvExportBtn.addEventListener('click',exportCSV);
 

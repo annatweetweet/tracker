@@ -106,7 +106,8 @@
 // ─── Installment badge ────────────────────────────────────────────────────────
 
 .badge--installment {
-  background: $rust-faint;
-  color: $rust-mid;
-  border: 1px solid rgba($rust, 0.25);
+  background: $bordeaux-faint;
+  color: $bordeaux-mid;
+  border: 1px solid rgba($bordeaux, 0.25);
+  box-shadow: 0 0 6px rgba($bordeaux, 0.12);
 }

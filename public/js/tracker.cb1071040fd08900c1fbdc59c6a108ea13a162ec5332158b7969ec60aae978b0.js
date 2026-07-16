@@ -785,6 +785,13 @@
   elCancelEdit.addEventListener('click',function(){elCancelEdit.hidden=true;elFormTitle.textContent='Add Expense';elAddBtn.textContent='Add Expense';resetForm();});
   elBudgetBtn.addEventListener('click',openBudgetModal);
 
+  elExpenseList.addEventListener('click',function(e){
+    var btn=e.target.closest('button[data-id]'); if(!btn) return;
+    var id=Number(btn.dataset.id);
+    if(btn.classList.contains('expense-item__delete')) deleteExpense(id);
+    if(btn.classList.contains('expense-item__edit'))   openEditModal(id);
+  });
+
   elModalClose.addEventListener('click',closeEditModal);
   elModalCancel.addEventListener('click',closeEditModal);
   elModalSave.addEventListener('click',saveEdit);
