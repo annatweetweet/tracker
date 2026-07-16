@@ -94,3 +94,71 @@
   border-radius: 0;
   padding: 0;
 }
+
+// ─── Toggle switch ────────────────────────────────────────────────────────────
+
+.expense-form__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-sm;
+  cursor: pointer;
+  padding: $space-xs 0;
+
+  input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+}
+
+.expense-form__toggle-track {
+  position: relative;
+  width: 36px;
+  height: 20px;
+  background: $fog;
+  border-radius: $radius-pill;
+  border: 1px solid $fog;
+  flex-shrink: 0;
+  transition: background 0.2s, border-color 0.2s;
+
+  .expense-form__toggle input:checked ~ & {
+    background: $color-primary;
+    border-color: $color-primary;
+  }
+}
+
+.expense-form__toggle-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  background: $parchment;
+  border-radius: 50%;
+  transition: transform 0.2s;
+  box-shadow: 0 1px 3px rgba($bark, 0.2);
+
+  .expense-form__toggle input:checked ~ .expense-form__toggle-track & {
+    transform: translateX(16px);
+  }
+}
+
+.expense-form__toggle-label {
+  font-size: 0.8rem;
+  color: $color-text-muted;
+  font-weight: 500;
+}
+
+// ─── Budget button ────────────────────────────────────────────────────────────
+
+.btn--budget {
+  margin-top: 0;
+  margin-left: auto;
+  font-size: 0.65rem;
+  padding: 0.5rem 0.85rem;
+  color: $moss-mid;
+  border-color: $fog-light;
+
+  &:hover { border-color: $color-primary; color: $color-primary; }
+}

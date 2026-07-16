@@ -148,3 +148,16 @@
     background: $rust-faint;
   }
 }
+
+// ─── Section header ~ title + inline action ───────────────────────────────────
+
+.tracker__section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $space-md;
+
+  .tracker__section-title {
+    margin-bottom: 0;
+  }
+}

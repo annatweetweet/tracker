@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta name="generator" content="Hugo 0.160.1"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=58551&amp;path=livereload" data-no-instant defer></script>
+	<meta name="generator" content="Hugo 0.160.1"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <title>Money Tracker ~ Anna&#39;s Money Tracker</title>
@@ -15,7 +15,7 @@
   
   
   
-  <link rel="stylesheet" href="/css/main.44808b814c3cb6575071b6c395a39ba977cdecc2c5cf6fa31611148d6da7b942.css" integrity="sha256-RICLgUw8tldQcbbDlaObqXfN7MLFz2&#43;jFhEUjW2nuUI=">
+  <link rel="stylesheet" href="/css/main.78e8a4c646b1f08ddb891aa01b3591e546f4f27787e853f623e871ef367a86d5.css" integrity="sha256-eOikxkax8I3biRqgGzWR5Ub08neH6FP2I&#43;hx7zZ6htU=">
 </head>
 <body>
   
@@ -29,11 +29,11 @@
         <p class="tracker__site-sub">AGB Personal Finance</p>
       </div>
       <div class="tracker__header-right">
-      <span class="sync-status" id="sync-status"></span>
-      <nav class="tracker__tabs" aria-label="Main navigation">
-        <button class="tracker__tab tracker__tab--active" id="tab-tracker">Tracker</button>
-        <button class="tracker__tab" id="tab-dashboard">Dashboard</button>
-      </nav>
+        <span class="sync-status" id="sync-status"></span>
+        <nav class="tracker__tabs" aria-label="Main navigation">
+          <button class="tracker__tab tracker__tab--active" id="tab-tracker">Tracker</button>
+          <button class="tracker__tab" id="tab-dashboard">Dashboard</button>
+        </nav>
       </div>
     </div>
   </header>
@@ -55,8 +55,8 @@
         <span class="summary-card__value" id="total-spent">&#8369;0.00</span>
       </div>
       <div class="summary-card">
-        <span class="summary-card__label">Entries</span>
-        <span class="summary-card__value" id="entry-count">0</span>
+        <span class="summary-card__label">Budget Left</span>
+        <span class="summary-card__value summary-card__value--sm" id="budget-left">~ no budget</span>
       </div>
       <div class="summary-card">
         <span class="summary-card__label">Top Category</span>
@@ -72,17 +72,7 @@
         <div class="expense-form__row">
           <div class="expense-form__group">
             <label class="expense-form__label" for="amt">Amount (&#8369;)</label>
-            <input
-              class="expense-form__input"
-              type="number"
-              id="amt"
-              name="amt"
-              placeholder="0.00"
-              min="0"
-              step="0.01"
-              autocomplete="off"
-              aria-required="true"
-            >
+            <input class="expense-form__input" type="number" id="amt" name="amt" placeholder="0.00" min="0" step="0.01" autocomplete="off" aria-required="true">
           </div>
           <div class="expense-form__group">
             <label class="expense-form__label" for="cat">Category</label>
@@ -113,14 +103,18 @@
           </div>
           <div class="expense-form__group">
             <label class="expense-form__label" for="notes">Notes</label>
-            <input
-              class="expense-form__input"
-              type="text"
-              id="notes"
-              name="notes"
-              placeholder="What was it for?"
-              autocomplete="off"
-            >
+            <input class="expense-form__input" type="text" id="notes" name="notes" placeholder="What was it for?" autocomplete="off">
+          </div>
+        </div>
+        <div class="expense-form__row">
+          <div class="expense-form__group expense-form__group--full">
+            <label class="expense-form__toggle">
+              <input type="checkbox" id="is-recurring" name="is-recurring">
+              <span class="expense-form__toggle-track">
+                <span class="expense-form__toggle-thumb"></span>
+              </span>
+              <span class="expense-form__toggle-label">Recurring monthly expense</span>
+            </label>
           </div>
         </div>
         <p class="expense-form__error" id="form-error" role="alert" aria-live="assertive" hidden></p>
@@ -132,9 +126,18 @@
     </section>
 
     
+    <section class="tracker__section" id="budget-section" aria-label="Budget progress">
+      <div class="tracker__section-header">
+        <h2 class="tracker__section-title">Budget</h2>
+        <button class="btn btn--ghost btn--budget" id="budget-btn" type="button">&#9881; Set Budgets</button>
+      </div>
+      <div class="budget-list" id="budget-list"></div>
+    </section>
+
+    
     <section class="tracker__section" id="chart-section" hidden aria-label="Spending by category">
       <h2 class="tracker__section-title">By Category</h2>
-      <div class="cat-chart" id="cat-chart" aria-label="Category spending bars"></div>
+      <div class="cat-chart" id="cat-chart"></div>
     </section>
 
     
@@ -146,7 +149,6 @@
     </section>
 
   </div>
-
 
   
   <div id="view-dashboard" hidden>
@@ -195,6 +197,12 @@
       </div>
     </section>
 
+    
+    <section class="tracker__section">
+      <h2 class="tracker__section-title">6-Month Trend</h2>
+      <div class="trend-chart" id="trend-chart" aria-label="6 month spending trend"></div>
+    </section>
+
     <section class="tracker__section" id="dash-chart-section" hidden>
       <h2 class="tracker__section-title">By Category</h2>
       <div class="cat-chart" id="dash-cat-chart"></div>
@@ -236,7 +244,6 @@
       </div>
       <div class="modal__body">
         <input type="hidden" id="modal-id">
-        
         <div class="expense-form expense-form--modal">
           <div class="expense-form__row">
             <div class="expense-form__group">
@@ -275,6 +282,17 @@
               <input class="expense-form__input" type="text" id="modal-notes" placeholder="What was it for?" autocomplete="off">
             </div>
           </div>
+          <div class="expense-form__row">
+            <div class="expense-form__group expense-form__group--full">
+              <label class="expense-form__toggle">
+                <input type="checkbox" id="modal-recurring">
+                <span class="expense-form__toggle-track">
+                  <span class="expense-form__toggle-thumb"></span>
+                </span>
+                <span class="expense-form__toggle-label">Recurring monthly expense</span>
+              </label>
+            </div>
+          </div>
           <p class="expense-form__error" id="modal-error" role="alert" hidden></p>
         </div>
       </div>
@@ -285,12 +303,32 @@
     </div>
   </div>
 
+  
+  <div class="modal-overlay" id="budget-modal-overlay" hidden aria-modal="true" role="dialog" aria-labelledby="budget-modal-title">
+    <div class="modal modal--wide">
+      <div class="modal__header">
+        <h2 class="modal__title" id="budget-modal-title">Set Monthly Budgets</h2>
+        <button class="modal__close" id="budget-modal-close" aria-label="Close">&#x2715;</button>
+      </div>
+      <div class="modal__body">
+        <p class="modal__hint">Leave blank to skip budgeting a category.</p>
+        <div class="expense-form expense-form--modal">
+          <div class="budget-inputs" id="budget-inputs"></div>
+        </div>
+      </div>
+      <div class="modal__footer">
+        <button class="btn btn--ghost" id="budget-modal-cancel">Cancel</button>
+        <button class="btn btn--primary" id="budget-modal-save" style="width:auto;">Save Budgets</button>
+      </div>
+    </div>
+  </div>
+
 </main>
 
 
 
   
   
-  <script src="/js/tracker.6fd722b182698310b5a774d245d63cc8b031a0e1539d138a8aca09ca68d8b653.js" integrity="sha256-b9cisYJpgxC1p3TSRdY8yLAxoOFTnROKisoJymjYtlM=" defer></script>
+  <script src="/js/tracker.daa4c2ce16ccf04e03d2bf65545a03c544249204cddd66eaab416043fc852d53.js" integrity="sha256-2qTCzhbM8E4D0r9lVFoDxUQkkgTN3Wbqq0FgQ/yFLVM=" defer></script>
 </body>
 </html>

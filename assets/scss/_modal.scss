@@ -18,10 +18,14 @@
   border-radius: $radius-lg;
   width: 100%;
   max-width: 480px;
+  max-height: 90vh;         // never taller than the screen
+  display: flex;
+  flex-direction: column;   // header + body + footer stack vertically
   box-shadow: 0 20px 60px rgba($bark, 0.35);
-  overflow: hidden;
+  overflow: hidden;         // clips the border-radius cleanly
 
   &__header {
+    flex-shrink: 0;         // always visible, never scrolled away
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -47,15 +51,30 @@
     padding: 4px;
     border-radius: $radius-sm;
     transition: color 0.15s, background 0.15s;
+    flex-shrink: 0;
     &:hover { color: $rust; background: $rust-faint; }
   }
 
   &__body {
+    flex: 1;                // takes all available space between header and footer
+    overflow-y: auto;       // scrolls when content is taller than available space
+    -webkit-overflow-scrolling: touch;
     padding: $space-lg;
+
     .expense-form__row { margin-bottom: $space-sm; }
+
+    // subtle scrollbar styling
+    scrollbar-width: thin;
+    scrollbar-color: $fog $shell;
+
+    &::-webkit-scrollbar { width: 6px; }
+    &::-webkit-scrollbar-track { background: $shell; }
+    &::-webkit-scrollbar-thumb { background: $fog; border-radius: $radius-pill; }
+    &::-webkit-scrollbar-thumb:hover { background: $fog; }
   }
 
   &__footer {
+    flex-shrink: 0;         // always visible, never scrolled away
     display: flex;
     gap: $space-sm;
     justify-content: flex-end;
@@ -63,5 +82,9 @@
     background: $shell;
     border-top: 1px solid $fog-light;
     .btn { width: auto; margin-top: 0; }
+  }
+
+  &--wide {
+    max-width: 560px;
   }
 }

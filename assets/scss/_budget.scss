@@ -1,0 +1,104 @@
+@import 'tokens';
+
+// ─── Budget progress bars ─────────────────────────────────────────────────────
+
+.budget-list {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+}
+
+.budget-bar {
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 5px;
+  }
+
+  &__cat {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: $color-text;
+  }
+
+  &__amounts {
+    font-family: $font-heading;
+    font-size: 0.7rem;
+    color: $color-text-muted;
+  }
+
+  &__of {
+    font-family: $font-body;
+    font-weight: 400;
+    font-size: 0.65rem;
+    color: $fog;
+    margin: 0 2px;
+  }
+
+  &__track {
+    height: 8px;
+    background: $shell-dark;
+    border-radius: $radius-pill;
+    overflow: hidden;
+  }
+
+  &__fill {
+    height: 100%;
+    border-radius: $radius-pill;
+    background: $color-primary;
+    transition: width 0.4s ease;
+
+    &--warn { background: $amber; }
+    &--over { background: $rust; }
+  }
+
+  &__warning {
+    font-size: 0.7rem;
+    color: $rust;
+    margin-top: 3px;
+    font-weight: 500;
+  }
+}
+
+// ─── Budget modal hint ────────────────────────────────────────────────────────
+
+.modal__hint {
+  font-size: 0.8rem;
+  color: $color-text-muted;
+  margin-bottom: $space-md;
+}
+
+// ─── Modal wide variant ───────────────────────────────────────────────────────
+
+.modal--wide {
+  max-width: 560px;
+}
+
+// ─── Badges ───────────────────────────────────────────────────────────────────
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0 5px;
+  border-radius: $radius-pill;
+  vertical-align: middle;
+  margin-left: 4px;
+
+  &--recurring {
+    background: $amber-faint;
+    color: $amber;
+    border: 1px solid rgba($amber, 0.3);
+  }
+}
+
+// ─── Empty state ──────────────────────────────────────────────────────────────
+
+.budget-list__empty {
+  font-size: 0.82rem;
+  color: $color-text-subtle;
+  font-style: italic;
+  padding: $space-sm 0;
+}
