@@ -655,25 +655,13 @@
   elCat.addEventListener('change',function(){elCat.classList.remove('is-error');});
   elPayment.addEventListener('change',function(){elPayment.classList.remove('is-error');});
 
-  function updateInstallmentHint() {
-    var hint=$('installment-hint'); if(!hint) return;
-    var amt=parseFloat(elAmt.value), months=parseInt(elInstallmentMonths.value,10);
-    if(elIsInstallment.checked && amt>0 && months>=2) {
-      hint.textContent=peso(amt/months)+' / month';
-      hint.hidden=false;
-    } else { hint.hidden=true; }
-  }
-
   elIsInstallment.addEventListener('change',function(){
     elInstallmentMonthsRow.hidden=!elIsInstallment.checked;
-    if(elIsInstallment.checked){elIsRecurring.checked=false;}
-    updateInstallmentHint();
+    if(elIsInstallment.checked){elIsRecurring.checked=false;} // mutually exclusive
   });
   elIsRecurring.addEventListener('change',function(){
     if(elIsRecurring.checked){elIsInstallment.checked=false;elInstallmentMonthsRow.hidden=true;}
   });
-  elAmt.addEventListener('input',updateInstallmentHint);
-  if(elInstallmentMonths) elInstallmentMonths.addEventListener('input',updateInstallmentHint);
 
   elModalInstallment.addEventListener('change',function(){
     elModalInstallmentMonthsRow.hidden=!elModalInstallment.checked;

@@ -255,19 +255,17 @@
     if (localStorage.getItem(dismissedKey)) { elCarryoverBar.hidden=true; return; }
 
     var currentEntries = monthlyExp(viewYear, viewMonth);
+    if (currentEntries.length > 0) { elCarryoverBar.hidden=true; return; } // month already has entries
 
     var prevMonth=viewMonth-1, prevYear=viewYear;
     if (prevMonth<0){prevMonth=11;prevYear-=1;}
     var prevEntries = monthlyExp(prevYear, prevMonth);
 
-    // get recurring + active installments from prev month not yet logged this month
+    // get recurring + active installments from prev month
     var suggestions = prevEntries.filter(function(e){
-      if (e.isRecurring) {
-        return !currentEntries.some(function(c){ return c.category===e.category && c.isRecurring; });
-      }
+      if (e.isRecurring) return true;
       if (e.isInstallment && e.installmentMonths && e.installmentCurrent) {
-        if (e.installmentCurrent >= e.installmentMonths) return false;
-        return !currentEntries.some(function(c){ return c.category===e.category && c.isInstallment && c.installmentMonths===e.installmentMonths; });
+        return e.installmentCurrent < e.installmentMonths; // still has payments left
       }
       return false;
     });
@@ -474,9 +472,7 @@
     if(isInstallment&&(!installmentMonths||installmentMonths<2)){elInstallmentMonths.classList.add('is-error');valid=false;}else{if(elInstallmentMonths)elInstallmentMonths.classList.remove('is-error');}
     if(!valid){showError('Please fill in all required fields.');return;}
 
-    var baseAmt = parseFloat(rawAmt);
-    var monthlyAmt = parseFloat((isInstallment ? baseAmt / installmentMonths : baseAmt).toFixed(2));
-    var entry={id:null,amount:monthlyAmt,category:cat,payment:payment,notes:notes,date:new Date(viewYear,viewMonth,today.getDate()).toISOString(),isRecurring:isRecurring,isInstallment:isInstallment,installmentMonths:isInstallment?installmentMonths:null,installmentCurrent:isInstallment?1:null};
+    var entry={id:null,amount:parseFloat(parseFloat(rawAmt).toFixed(2)),category:cat,payment:payment,notes:notes,date:new Date(viewYear,viewMonth,today.getDate()).toISOString(),isRecurring:isRecurring,isInstallment:isInstallment,installmentMonths:isInstallment?installmentMonths:null,installmentCurrent:isInstallment?1:null};
     elAddBtn.disabled=true; elAddBtn.textContent='Saving...';
     sbInsert(entry).then(function(id){entry.id=id;}).catch(function(){entry.id=Date.now();})
       .then(function(){expenses.unshift(entry);saveLocal();populateYears();resetForm();renderTracker();elAddBtn.disabled=false;elAddBtn.textContent='Add Expense';});
@@ -655,25 +651,13 @@
   elCat.addEventListener('change',function(){elCat.classList.remove('is-error');});
   elPayment.addEventListener('change',function(){elPayment.classList.remove('is-error');});
 
-  function updateInstallmentHint() {
-    var hint=$('installment-hint'); if(!hint) return;
-    var amt=parseFloat(elAmt.value), months=parseInt(elInstallmentMonths.value,10);
-    if(elIsInstallment.checked && amt>0 && months>=2) {
-      hint.textContent=peso(amt/months)+' / month';
-      hint.hidden=false;
-    } else { hint.hidden=true; }
-  }
-
   elIsInstallment.addEventListener('change',function(){
     elInstallmentMonthsRow.hidden=!elIsInstallment.checked;
-    if(elIsInstallment.checked){elIsRecurring.checked=false;}
-    updateInstallmentHint();
+    if(elIsInstallment.checked){elIsRecurring.checked=false;} // mutually exclusive
   });
   elIsRecurring.addEventListener('change',function(){
     if(elIsRecurring.checked){elIsInstallment.checked=false;elInstallmentMonthsRow.hidden=true;}
   });
-  elAmt.addEventListener('input',updateInstallmentHint);
-  if(elInstallmentMonths) elInstallmentMonths.addEventListener('input',updateInstallmentHint);
 
   elModalInstallment.addEventListener('change',function(){
     elModalInstallmentMonthsRow.hidden=!elModalInstallment.checked;

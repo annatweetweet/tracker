@@ -102,3 +102,22 @@
   font-style: italic;
   padding: $space-sm 0;
 }
+
+// ─── Annual budget total row ──────────────────────────────────────────────────
+
+.budget-bar--total {
+  margin-top: $space-md;
+  padding-top: $space-md;
+  border-top: 1px solid $fog-light;
+
+  .budget-bar__cat {
+    font-family: $font-heading;
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    color: $color-text;
+  }
+
+  .budget-bar__track {
+    height: 10px;
+  }
+}

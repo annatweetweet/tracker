@@ -1,0 +1,112 @@
+@import 'tokens';
+
+// ─── Spending insights panel ──────────────────────────────────────────────────
+
+.insights-panel {
+  background: $amber-faint;
+  border-left: 3px solid $amber;
+  margin: 0 $space-lg;
+  border-radius: 0 $radius-md $radius-md 0;
+
+  @media (min-width: $bp-md) { margin: 0 $space-xl; }
+
+  &[hidden] { display: none; }
+
+  &__inner {
+    padding: $space-md;
+    display: flex;
+    flex-direction: column;
+    gap: $space-xs;
+  }
+
+  &__item {
+    font-size: 0.82rem;
+    color: $color-text;
+    line-height: 1.5;
+  }
+}
+
+// ─── Carry-over suggestion bar ────────────────────────────────────────────────
+
+.carryover-bar {
+  background: $shell;
+  border: 1px solid $fog-light;
+  border-radius: $radius-lg;
+  margin: $space-lg $space-lg 0;
+  padding: $space-md;
+
+  @media (min-width: $bp-md) { margin: $space-xl $space-xl 0; }
+
+  &[hidden] { display: none; }
+
+  &__title {
+    font-family: $font-heading;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: $color-label;
+    margin-bottom: $space-sm;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: $space-xs;
+    margin-bottom: $space-md;
+  }
+
+  &__actions {
+    display: flex;
+    gap: $space-sm;
+    align-items: center;
+
+    .btn { margin-top: 0; }
+  }
+}
+
+.carryover-item {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+  cursor: pointer;
+  padding: $space-xs 0;
+
+  &__check {
+    width: 16px;
+    height: 16px;
+    accent-color: $color-primary;
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+
+  &__info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1;
+    gap: $space-sm;
+  }
+
+  &__cat {
+    font-size: 0.82rem;
+    color: $color-text;
+    font-weight: 500;
+  }
+
+  &__amt {
+    font-family: $font-heading;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: $color-primary;
+    flex-shrink: 0;
+  }
+}
+
+// ─── Installment badge ────────────────────────────────────────────────────────
+
+.badge--installment {
+  background: $rust-faint;
+  color: $rust-mid;
+  border: 1px solid rgba($rust, 0.25);
+}
