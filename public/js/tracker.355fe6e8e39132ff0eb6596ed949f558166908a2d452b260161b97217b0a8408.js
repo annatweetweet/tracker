@@ -627,8 +627,7 @@
     if(!rawAmt||isNaN(rawAmt)||parseFloat(rawAmt)<=0){elModalAmt.classList.add('is-error');valid=false;}else{elModalAmt.classList.remove('is-error');}
     if(!cat){elModalCat.classList.add('is-error');valid=false;}else{elModalCat.classList.remove('is-error');}
     if(!valid){elModalError.textContent='Amount and category are required.';elModalError.hidden=false;return;}
-    var editMonthlyAmt=isInstallment&&installmentMonths>0?parseFloat(rawAmt)/installmentMonths:parseFloat(rawAmt);
-    var fields={amount:parseFloat(editMonthlyAmt.toFixed(2)),category:cat,payment:payment,notes:notes,isRecurring:isRecurring,isInstallment:isInstallment,installmentMonths:isInstallment?installmentMonths:null};
+    var fields={amount:parseFloat(parseFloat(rawAmt).toFixed(2)),category:cat,payment:payment,notes:notes,isRecurring:isRecurring,isInstallment:isInstallment,installmentMonths:isInstallment?installmentMonths:null};
     elModalSave.disabled=true; elModalSave.textContent='Saving...';
     sbUpdate(id,fields).catch(function(){});
     var idx=expenses.findIndex(function(e){return e.id===id;});
