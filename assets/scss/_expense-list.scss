@@ -13,8 +13,6 @@
   }
 }
 
-// ─── Expense item ─────────────────────────────────────────────────────────────
-
 .expense-item {
   display: grid;
   grid-template-columns: auto 1fr auto;
@@ -22,60 +20,20 @@
   gap: $space-md;
   padding: $space-md 0;
   border-bottom: 1px solid $fog-light;
-  transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
-  border-radius: $radius-md;
-  animation: item-enter 0.3s ease both;
 
   &:last-child { border-bottom: none; }
-
-  &:hover {
-    background: rgba($shell, 0.6);
-    transform: translateX(2px);
-    padding-left: $space-sm;
-    padding-right: $space-sm;
-    margin: 0 (-$space-sm);
-  }
-
-  &--selected {
-    background: rgba($bordeaux-faint, 0.7);
-    border-color: rgba($bordeaux, 0.2);
-    padding-left: $space-sm;
-    padding-right: $space-sm;
-    margin: 0 (-$space-sm);
-  }
-
-  &__checkbox {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-
-    input[type="checkbox"] {
-      width: 17px;
-      height: 17px;
-      accent-color: $bordeaux;
-      cursor: pointer;
-      border-radius: $radius-sm;
-    }
-  }
 
   &__icon {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: linear-gradient(135deg, $shell 0%, $parchment-dark 100%);
+    background: $shell;
     border: 1px solid $fog-light;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 1.1rem;
     flex-shrink: 0;
-    box-shadow: 0 1px 4px rgba($bark, 0.08);
-    transition: box-shadow 0.15s ease;
-
-    .expense-item:hover & {
-      box-shadow: 0 2px 8px rgba($bark, 0.14);
-    }
   }
 
   &__body { min-width: 0; }
@@ -91,13 +49,13 @@
 
   &__payment {
     display: inline-block;
-    font-size: 0.6rem;
+    font-size: 0.62rem;
     font-weight: 600;
-    letter-spacing: 0.07em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: $rose-gold;
-    background: $rose-gold-faint;
-    border: 1px solid rgba($rose-gold, 0.3);
+    color: $amber;
+    background: $amber-faint;
+    border: 1px solid rgba($amber, 0.25);
     border-radius: $radius-pill;
     padding: 1px 7px;
     margin-top: 3px;
@@ -113,10 +71,9 @@
   }
 
   &__date {
-    font-size: 0.68rem;
+    font-size: 0.7rem;
     color: $moss-light;
     margin-top: 2px;
-    letter-spacing: 0.02em;
   }
 
   &__right {
@@ -131,10 +88,7 @@
     font-family: $font-heading;
     font-size: 0.9rem;
     font-weight: 600;
-    background: linear-gradient(135deg, $rust 0%, $bordeaux 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: $color-primary;
   }
 
   &__actions { display: flex; gap: 4px; }
@@ -147,13 +101,12 @@
     line-height: 1;
     padding: 4px 7px;
     border-radius: $radius-sm;
-    transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.1s;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
 
     &:hover {
       background: $amber;
       border-color: $amber;
       color: $parchment;
-      transform: scale(1.05);
     }
   }
 
@@ -165,68 +118,12 @@
     line-height: 1;
     padding: 4px 7px;
     border-radius: $radius-sm;
-    transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.1s;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
 
     &:hover {
       background: $rust;
       border-color: $rust;
       color: $parchment;
-      transform: scale(1.05);
     }
-  }
-}
-
-// ─── Select mode ──────────────────────────────────────────────────────────────
-
-.expense-list--select-mode .expense-item {
-  grid-template-columns: 24px auto 1fr auto;
-  cursor: pointer;
-}
-
-// ─── Bulk action bar ──────────────────────────────────────────────────────────
-
-.bulk-bar {
-  display: flex;
-  align-items: center;
-  gap: $space-sm;
-  padding: $space-sm $space-md;
-  background: linear-gradient(135deg, $bordeaux-faint 0%, $rust-faint 100%);
-  border: 1px solid rgba($bordeaux, 0.2);
-  border-radius: $radius-lg;
-  margin-bottom: $space-md;
-  animation: fade-in 0.2s ease both;
-
-  &[hidden] { display: none; }
-
-  &__all {
-    display: flex;
-    align-items: center;
-    gap: 0.35rem;
-    font-size: 0.7rem;
-    font-weight: 600;
-    color: $moss;
-    cursor: pointer;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-
-    input[type="checkbox"] {
-      width: 15px;
-      height: 15px;
-      accent-color: $bordeaux;
-      cursor: pointer;
-    }
-  }
-
-  &__count {
-    font-size: 0.72rem;
-    color: $bordeaux;
-    font-weight: 600;
-    flex: 1;
-    font-family: $font-heading;
-  }
-
-  &__actions {
-    display: flex;
-    gap: $space-xs;
   }
 }

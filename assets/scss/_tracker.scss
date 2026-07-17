@@ -8,8 +8,7 @@
 }
 
 .tracker__header {
-  background: linear-gradient(160deg, $bark 0%, $bark-mid 100%);
-  border-bottom: 1px solid rgba($rose-gold, 0.15);
+  background: $color-header-bg;
   padding: $space-lg $space-lg $space-md;
   @media (min-width: $bp-md) { padding: $space-xl $space-xl $space-lg; }
 }
@@ -56,12 +55,7 @@
   transition: background 0.15s, color 0.15s, border-color 0.15s;
 
   &:hover { color: $parchment; border-color: rgba($parchment, 0.4); }
-  &--active {
-    background: linear-gradient(135deg, $rust 0%, $bordeaux 100%);
-    border-color: transparent;
-    color: $parchment;
-    box-shadow: 0 0 10px rgba($rust, 0.35);
-  }
+  &--active { background: $rust; border-color: $rust; color: $parchment; }
 }
 
 // ─── Month nav ────────────────────────────────────────────────────────────────
@@ -116,19 +110,6 @@
   text-transform: uppercase;
   color: $color-label;
   margin-bottom: $space-md;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-
-  &::before {
-    content: '';
-    display: inline-block;
-    width: 3px;
-    height: 0.75em;
-    background: linear-gradient(to bottom, $rust, $bordeaux);
-    border-radius: $radius-pill;
-    flex-shrink: 0;
-  }
 }
 
 // ─── Header right cluster (tabs + sync status) ────────────────────────────────

@@ -79,14 +79,6 @@
     &[hidden] { display: none; }
   }
 
-  &__hint {
-    font-size: 0.78rem;
-    color: $color-label;
-    font-style: italic;
-    padding: 0.5rem 0;
-    &[hidden] { display: none; }
-  }
-
   &__actions {
     display: flex;
     gap: $space-sm;

@@ -35,30 +35,15 @@
         <span class="summary-card__label">Total Spent</span>
         <span class="summary-card__value" id="total-spent">&#8369;0.00</span>
       </div>
-      <div class="summary-card" id="budget-left-card">
-        <span class="summary-card__label" id="budget-left-label">Entries</span>
-        <span class="summary-card__value summary-card__value--sm" id="budget-left">0</span>
+      <div class="summary-card">
+        <span class="summary-card__label">Budget Left</span>
+        <span class="summary-card__value summary-card__value--sm" id="budget-left">~ no budget</span>
       </div>
       <div class="summary-card">
         <span class="summary-card__label">Top Category</span>
         <span class="summary-card__value summary-card__value--sm" id="top-cat">~</span>
       </div>
     </section>
-
-    {{/* Spending Insights */}}
-    <div class="insights-panel" id="insights-panel" hidden>
-      <div class="insights-panel__inner" id="insights-inner"></div>
-    </div>
-
-    {{/* Recurring carry-over suggestion bar */}}
-    <div class="carryover-bar" id="carryover-bar" hidden>
-      <p class="carryover-bar__title">↻ Recurring expenses from last month</p>
-      <div class="carryover-bar__list" id="carryover-list"></div>
-      <div class="carryover-bar__actions">
-        <button class="btn btn--primary" id="carryover-confirm-all" style="width:auto;font-size:0.65rem;padding:0.5rem 1rem;">Add Selected</button>
-        <button class="btn btn--ghost" id="carryover-dismiss" style="font-size:0.65rem;padding:0.5rem 1rem;">Dismiss</button>
-      </div>
-    </div>
 
     {{/* Add Expense Form */}}
     <section class="tracker__section">
@@ -103,33 +88,14 @@
           </div>
         </div>
         <div class="expense-form__row">
-          <div class="expense-form__group">
+          <div class="expense-form__group expense-form__group--full">
             <label class="expense-form__toggle">
               <input type="checkbox" id="is-recurring" name="is-recurring">
               <span class="expense-form__toggle-track">
                 <span class="expense-form__toggle-thumb"></span>
               </span>
-              <span class="expense-form__toggle-label">Recurring monthly</span>
+              <span class="expense-form__toggle-label">Recurring monthly expense</span>
             </label>
-          </div>
-          <div class="expense-form__group">
-            <label class="expense-form__toggle">
-              <input type="checkbox" id="is-installment" name="is-installment">
-              <span class="expense-form__toggle-track">
-                <span class="expense-form__toggle-thumb"></span>
-              </span>
-              <span class="expense-form__toggle-label">Installment</span>
-            </label>
-          </div>
-        </div>
-        <div class="expense-form__row" id="installment-months-row" hidden>
-          <div class="expense-form__group">
-            <label class="expense-form__label" for="installment-months">Number of months</label>
-            <input class="expense-form__input" type="number" id="installment-months" min="2" max="60" step="1" placeholder="e.g. 12">
-          </div>
-          <div class="expense-form__group">
-            <span class="expense-form__label">&nbsp;</span>
-            <p class="expense-form__hint" id="installment-hint" hidden></p>
           </div>
         </div>
         <p class="expense-form__error" id="form-error" role="alert" aria-live="assertive" hidden></p>
@@ -152,26 +118,12 @@
     {{/* Category Breakdown */}}
     <section class="tracker__section" id="chart-section" hidden aria-label="Spending by category">
       <h2 class="tracker__section-title">By Category</h2>
-      <div class="donut-chart" id="cat-chart"></div>
+      <div class="cat-chart" id="cat-chart"></div>
     </section>
 
     {{/* Expense Log */}}
     <section class="tracker__section">
-      <div class="tracker__section-header">
-        <h2 class="tracker__section-title">This Month</h2>
-        <button class="btn btn--ghost btn--sm" id="select-btn" type="button">Select</button>
-      </div>
-      <div class="bulk-bar" id="bulk-bar" hidden>
-        <label class="bulk-bar__all">
-          <input type="checkbox" id="select-all-check">
-          <span>All</span>
-        </label>
-        <span class="bulk-bar__count" id="bulk-count">0 selected</span>
-        <div class="bulk-bar__actions">
-          <button class="btn btn--danger btn--sm" id="bulk-delete-btn" type="button">Delete</button>
-          <button class="btn btn--ghost btn--sm" id="bulk-cancel-btn" type="button">Cancel</button>
-        </div>
-      </div>
+      <h2 class="tracker__section-title">This Month</h2>
       <div class="expense-list" id="expense-list" aria-label="Expense log" aria-live="polite">
         <p class="expense-list__empty">No expenses logged yet.</p>
       </div>
@@ -228,15 +180,6 @@
       </div>
     </section>
 
-    {{/* Annual Budget */}}
-    <section class="tracker__section">
-      <div class="tracker__section-header">
-        <h2 class="tracker__section-title">Annual Budget</h2>
-        <button class="btn btn--ghost btn--budget" id="annual-budget-btn" type="button">&#9881; Set Annual Budget</button>
-      </div>
-      <div id="annual-budget-content"></div>
-    </section>
-
     {{/* 6-month trend chart */}}
     <section class="tracker__section">
       <h2 class="tracker__section-title">6-Month Trend</h2>
@@ -249,10 +192,7 @@
     </section>
 
     <section class="tracker__section" id="dash-entries-section">
-      <div class="tracker__section-header">
-        <h2 class="tracker__section-title">All Entries</h2>
-        <button class="btn btn--ghost btn--budget" id="csv-export-btn" type="button">&#8659; Export CSV</button>
-      </div>
+      <h2 class="tracker__section-title">All Entries</h2>
       <div class="dash-table-wrap">
         <table class="dash-table" id="dash-table">
           <thead>
@@ -326,29 +266,14 @@
             </div>
           </div>
           <div class="expense-form__row">
-            <div class="expense-form__group">
+            <div class="expense-form__group expense-form__group--full">
               <label class="expense-form__toggle">
                 <input type="checkbox" id="modal-recurring">
                 <span class="expense-form__toggle-track">
                   <span class="expense-form__toggle-thumb"></span>
                 </span>
-                <span class="expense-form__toggle-label">Recurring monthly</span>
+                <span class="expense-form__toggle-label">Recurring monthly expense</span>
               </label>
-            </div>
-            <div class="expense-form__group">
-              <label class="expense-form__toggle">
-                <input type="checkbox" id="modal-installment">
-                <span class="expense-form__toggle-track">
-                  <span class="expense-form__toggle-thumb"></span>
-                </span>
-                <span class="expense-form__toggle-label">Installment</span>
-              </label>
-            </div>
-          </div>
-          <div class="expense-form__row" id="modal-installment-months-row" hidden>
-            <div class="expense-form__group">
-              <label class="expense-form__label" for="modal-installment-months">Number of months</label>
-              <input class="expense-form__input" type="number" id="modal-installment-months" min="2" max="60" step="1" placeholder="e.g. 12">
             </div>
           </div>
           <p class="expense-form__error" id="modal-error" role="alert" hidden></p>
@@ -377,26 +302,6 @@
       <div class="modal__footer">
         <button class="btn btn--ghost" id="budget-modal-cancel">Cancel</button>
         <button class="btn btn--primary" id="budget-modal-save" style="width:auto;">Save Budgets</button>
-      </div>
-    </div>
-  </div>
-
-  {{/* ── Annual Budget Modal ────────────────────────────────────────────── */}}
-  <div class="modal-overlay" id="annual-budget-modal-overlay" hidden aria-modal="true" role="dialog" aria-labelledby="annual-budget-modal-title">
-    <div class="modal modal--wide">
-      <div class="modal__header">
-        <h2 class="modal__title" id="annual-budget-modal-title">Set Annual Budget</h2>
-        <button class="modal__close" id="annual-budget-modal-close" aria-label="Close">&#x2715;</button>
-      </div>
-      <div class="modal__body">
-        <p class="modal__hint" id="annual-budget-modal-hint">Set spending limits per category for the full year (Jan 1 ~ Dec 31). Leave blank to skip a category.</p>
-        <div class="expense-form expense-form--modal">
-          <div class="budget-inputs" id="annual-budget-inputs"></div>
-        </div>
-      </div>
-      <div class="modal__footer">
-        <button class="btn btn--ghost" id="annual-budget-modal-cancel">Cancel</button>
-        <button class="btn btn--primary" id="annual-budget-modal-save" style="width:auto;">Save Annual Budget</button>
       </div>
     </div>
   </div>
