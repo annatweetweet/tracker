@@ -28,13 +28,13 @@ input, select, textarea { font-family: $font-body; }
   align-items: center;
   justify-content: center;
   border: none;
-  border-radius: $radius-pill;
+  border-radius: 6px;
   font-family: $font-heading;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  padding: 0.7rem 1.4rem;
-  transition: background 0.18s ease, transform 0.1s ease, box-shadow 0.18s ease;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  padding: 0.72rem 1.4rem;
+  transition: background 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
 
   &:active { transform: scale(0.97); }
 
@@ -43,11 +43,11 @@ input, select, textarea { font-family: $font-body; }
     background: $color-primary;
     color: $shell;
     margin-top: $space-sm;
-    box-shadow: 0 2px 8px rgba($olive, 0.28);
+    box-shadow: 0 2px 12px rgba($olive, 0.38);
 
     &:hover {
       background: $color-primary-deep;
-      box-shadow: 0 4px 16px rgba($olive, 0.32);
+      box-shadow: 0 4px 20px rgba($olive, 0.44);
     }
   }
 

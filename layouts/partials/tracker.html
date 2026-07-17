@@ -20,7 +20,7 @@
 
     <div class="tracker__header-inner">
       <div class="tracker__brand">
-        <h1 class="tracker__site-title">Anna's Finances Tracker</h1>
+        <img class="tracker__logo" src="/img/logo.svg" alt="Anna's Finances" width="44" height="34">
       </div>
       <div class="tracker__header-right">
         <span class="sync-status" id="sync-status"></span>
@@ -50,22 +50,22 @@
           <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M7.5 5L12.5 10L7.5 15" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
       </nav>
+      <div class="tracker__hero">
+        <p class="tracker__hero__amount" id="total-spent">&#8369;0.00</p>
+        <p class="tracker__hero__label">spent this month</p>
+      </div>
+      <div class="tracker__stat-row">
+        <div class="tracker__stat">
+          <span class="tracker__stat__label" id="budget-left-label">Entries</span>
+          <span class="tracker__stat__val" id="budget-left">0</span>
+        </div>
+        <div class="tracker__stat-sep" aria-hidden="true"></div>
+        <div class="tracker__stat">
+          <span class="tracker__stat__label">Top Category</span>
+          <span class="tracker__stat__val" id="top-cat">~</span>
+        </div>
+      </div>
     </div>
-
-    <section class="tracker__summary" aria-label="Monthly summary">
-      <div class="summary-card">
-        <span class="summary-card__label">Total Spent</span>
-        <span class="summary-card__value" id="total-spent">&#8369;0.00</span>
-      </div>
-      <div class="summary-card" id="budget-left-card">
-        <span class="summary-card__label" id="budget-left-label">Entries</span>
-        <span class="summary-card__value summary-card__value--sm" id="budget-left">0</span>
-      </div>
-      <div class="summary-card">
-        <span class="summary-card__label">Top Category</span>
-        <span class="summary-card__value summary-card__value--sm" id="top-cat">~</span>
-      </div>
-    </section>
 
     {{/* Spending Insights */}}
     <div class="insights-panel" id="insights-panel" hidden>
@@ -201,34 +201,31 @@
   ══════════════════════════════════════════════════════════════════════════ */}}
   <div id="view-dashboard" hidden>
 
-    <section class="tracker__section">
-      <h2 class="tracker__section-title">Report</h2>
-      <div class="expense-form">
-        <div class="dash-controls">
-          <div class="dash-controls__group">
-            <label class="expense-form__label" for="dash-month">Month</label>
-            <select class="expense-form__select" id="dash-month">
-              <option value="0">January</option>
-              <option value="1">February</option>
-              <option value="2">March</option>
-              <option value="3">April</option>
-              <option value="4">May</option>
-              <option value="5">June</option>
-              <option value="6">July</option>
-              <option value="7">August</option>
-              <option value="8">September</option>
-              <option value="9">October</option>
-              <option value="10">November</option>
-              <option value="11">December</option>
-            </select>
-          </div>
-          <div class="dash-controls__group">
-            <label class="expense-form__label" for="dash-year">Year</label>
-            <select class="expense-form__select" id="dash-year"></select>
-          </div>
+    <div class="tracker__dash-bar">
+      <div class="dash-controls">
+        <div class="dash-controls__group">
+          <label class="dash-controls__label" for="dash-month">Month</label>
+          <select class="dash-controls__select" id="dash-month">
+            <option value="0">January</option>
+            <option value="1">February</option>
+            <option value="2">March</option>
+            <option value="3">April</option>
+            <option value="4">May</option>
+            <option value="5">June</option>
+            <option value="6">July</option>
+            <option value="7">August</option>
+            <option value="8">September</option>
+            <option value="9">October</option>
+            <option value="10">November</option>
+            <option value="11">December</option>
+          </select>
+        </div>
+        <div class="dash-controls__group">
+          <label class="dash-controls__label" for="dash-year">Year</label>
+          <select class="dash-controls__select" id="dash-year"></select>
         </div>
       </div>
-    </section>
+    </div>
 
     <section class="tracker__summary tracker__summary--dash" aria-label="Dashboard summary">
       <div class="summary-card">

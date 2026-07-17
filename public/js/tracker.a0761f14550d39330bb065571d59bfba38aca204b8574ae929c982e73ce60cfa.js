@@ -326,18 +326,16 @@
     monthly.forEach(function(e){ catSpend[e.category]=(catSpend[e.category]||0)+e.amount; });
     elBudgetList.innerHTML = CATEGORIES.filter(function(c){ return parseFloat(budgets[c])>0; }).map(function(c){
       var budget=parseFloat(budgets[c])||0, spent=catSpend[c]||0;
-      var rawPct=(spent/budget)*100, pct=Math.min(rawPct,100).toFixed(1), over=spent>budget;
-      var cls=over?'budget-bar__fill--over':rawPct>80?'budget-bar__fill--warn':'';
-      var chipColor=CAT_COLORS[c]||'#64748B';
+      var pct=Math.min((spent/budget)*100,100).toFixed(1), over=spent>budget;
+      var cls=over?'budget-bar__fill--over':pct>80?'budget-bar__fill--warn':'';
       return '<div class="budget-bar">'+
         '<div class="budget-bar__header">'+
-          '<span class="budget-bar__chip" style="background:'+esc(chipColor)+';color:#fff;">'+(CAT_EMOJI[c]||'')+'</span>'+
-          '<span class="budget-bar__cat">'+esc(c.split('/')[0].trim())+'</span>'+
+          '<span class="budget-bar__cat">'+(CAT_EMOJI[c]||'')+' '+esc(c.split('/')[0].trim())+'</span>'+
           buildSparkline(c)+
           '<span class="budget-bar__amounts">'+peso(spent)+' <span class="budget-bar__of">of</span> '+peso(budget)+'</span>'+
         '</div>'+
         '<div class="budget-bar__track"><div class="budget-bar__fill '+cls+'" style="width:'+pct+'%"></div></div>'+
-        '<p class="budget-bar__pct">'+(over?'Over by '+peso(spent-budget):rawPct.toFixed(0)+'% used')+'</p>'+
+        (over?'<p class="budget-bar__warning">Over by '+peso(spent-budget)+'</p>':'')+
       '</div>';
     }).join('');
   }
@@ -459,17 +457,13 @@
     var rows=CATEGORIES.filter(function(c){return parseFloat(ab[c])>0;}).map(function(c){
       var budget=parseFloat(ab[c])||0, spent=catSpend[c]||0;
       totalBudgeted+=budget; totalSpent+=spent;
-      var rawPct=(spent/budget)*100, pct=Math.min(rawPct,100).toFixed(1), over=spent>budget;
-      var cls=over?'budget-bar__fill--over':rawPct>80?'budget-bar__fill--warn':'';
-      var chipColor=CAT_COLORS[c]||'#64748B';
+      var pct=Math.min((spent/budget)*100,100).toFixed(1), over=spent>budget;
+      var cls=over?'budget-bar__fill--over':pct>80?'budget-bar__fill--warn':'';
       return '<div class="budget-bar">'+
-        '<div class="budget-bar__header">'+
-          '<span class="budget-bar__chip" style="background:'+esc(chipColor)+';color:#fff;">'+(CAT_EMOJI[c]||'')+'</span>'+
-          '<span class="budget-bar__cat">'+esc(c.split('/')[0].trim())+'</span>'+
-          '<span class="budget-bar__amounts">'+peso(spent)+' <span class="budget-bar__of">of</span> '+peso(budget)+'</span>'+
-        '</div>'+
+        '<div class="budget-bar__header"><span class="budget-bar__cat">'+(CAT_EMOJI[c]||'')+' '+esc(c.split('/')[0].trim())+'</span>'+
+        '<span class="budget-bar__amounts">'+peso(spent)+' <span class="budget-bar__of">of</span> '+peso(budget)+'</span></div>'+
         '<div class="budget-bar__track"><div class="budget-bar__fill '+cls+'" style="width:'+pct+'%"></div></div>'+
-        '<p class="budget-bar__pct">'+(over?'Over by '+peso(spent-budget):rawPct.toFixed(0)+'% used')+'</p>'+
+        (over?'<p class="budget-bar__warning">Over by '+peso(spent-budget)+'</p>':'')+
       '</div>';
     }).join('');
     var op=Math.min((totalSpent/totalBudgeted)*100,100).toFixed(1), oo=totalSpent>totalBudgeted;
@@ -696,11 +690,11 @@
       var left=tb-total;
       elBudgetLeftLabel.textContent='Budget Left';
       elBudgetLeft.textContent=left>=0?peso(left)+' left':peso(Math.abs(left))+' over';
-      elBudgetLeft.className='tracker__stat__val'+(left<0?' tracker__stat__val--over':'');
+      elBudgetLeft.className='summary-card__value summary-card__value--sm'+(left<0?' summary-card__value--over':'');
     } else {
       elBudgetLeftLabel.textContent='Entries';
       elBudgetLeft.textContent=monthly.length;
-      elBudgetLeft.className='tracker__stat__val';
+      elBudgetLeft.className='summary-card__value summary-card__value--sm';
     }
 
     renderInsights(monthly);

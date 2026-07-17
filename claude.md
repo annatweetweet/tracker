@@ -8,11 +8,6 @@
 - Prefer server components; use 'use client' only when needed
 - Never use em dash; use tilde (~) instead
 
-- For the baseURL use "https://agb.com/"
-- Use "Permalink"
-- Site scaffold (full Hugo project with config, content, layouts)
-- Use Hugo Pipes (SCSS → CSS)
-
 ## Rules
 - Never push to main directly
 - Always run type check before committing
@@ -24,14 +19,20 @@
 - Brevity & Focus: Strip out filler words and excessive fluff. Deliver your response immediately without generic introductory statements or repetitive summaries.
 - Ensure it is fully responsive across mobile (min-width 320px) and desktop screens.
 
+## Platform
+- For the baseURL use "https://agb.com/"
+- Use "Permalink"
+- Site scaffold (full Hugo project with config, content, layouts)
+- Use Hugo Pipes (SCSS → CSS)
+
 **`netlify.toml`:**
 - Build: `hugo --gc --minify`
 - Hugo version: 0.160.1 Extended
 - Node version: 24
 - `HUGO_ENV = production`
 
-## Aesthetics
+<!-- ## Aesthetics
 - Use 2-3 colors, but you can use different intensities, preferred colors are: parchment, bordeaux, olive, fog and shell. Select the colors, but keep it very readable.
 - Girly but subtle and dark
-- Use google fonts, Unbound for headings, and Albert Sans for body copy
+- Use google fonts, Unbound for headings, and Albert Sans for body copy -->
 

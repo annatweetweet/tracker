@@ -1,21 +1,54 @@
 @import 'tokens';
 
-// ─── Controls ─────────────────────────────────────────────────────────────────
+// ─── Controls (inside dark dash-bar) ─────────────────────────────────────────
 
 .dash-controls {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: $space-sm;
+  max-width: 340px;
 
   @media (min-width: $bp-sm) {
     grid-template-columns: 2fr 1fr;
-    max-width: 380px;
   }
 
   &__group {
     display: flex;
     flex-direction: column;
     gap: 0.3rem;
+  }
+
+  &__label {
+    font-family: $font-heading;
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(#FFFFFF, 0.55);
+  }
+
+  &__select {
+    font-family: $font-body;
+    font-size: 0.88rem;
+    font-weight: 500;
+    background: rgba(#FFFFFF, 0.12);
+    border: 1.5px solid rgba(#FFFFFF, 0.2);
+    border-radius: $radius-sm;
+    padding: 0.5rem 0.75rem;
+    color: #FFFFFF;
+    outline: none;
+    width: 100%;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    transition: border-color 0.15s, background 0.15s;
+
+    option { background: $navy; color: #FFFFFF; }
+
+    &:focus {
+      border-color: rgba(#FFFFFF, 0.5);
+      background: rgba(#FFFFFF, 0.18);
+    }
   }
 }
 

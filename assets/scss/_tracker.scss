@@ -10,11 +10,11 @@
 // ─── Header ───────────────────────────────────────────────────────────────────
 
 .tracker__header {
-  background: #2E4030;
-  padding: $space-lg $space-lg 0;
+  background: $olive-deep;
+  padding: 0.7rem $space-lg;
   position: relative;
 
-  @media (min-width: $bp-md) { padding: $space-xl $space-xl 0; }
+  @media (min-width: $bp-md) { padding: 0.7rem $space-xl; }
 }
 
 .tracker__header-inner {
@@ -27,12 +27,10 @@
   z-index: 11;
 }
 
-.tracker__site-title {
-  font-family: $font-heading;
-  font-size: 1rem;
-  font-weight: 800;
-  color: $parchment;
-  letter-spacing: 0.01em;
+.tracker__logo {
+  display: block;
+  height: 34px;
+  width: auto;
 }
 
 // ─── Tabs ─────────────────────────────────────────────────────────────────────
@@ -41,32 +39,103 @@
 
 .tracker__tab {
   background: transparent;
-  border: 1.5px solid rgba($parchment, 0.2);
-  color: rgba($parchment, 0.55);
+  border: 1.5px solid rgba(#FFFFFF, 0.2);
+  color: rgba(#FFFFFF, 0.55);
   font-family: $font-heading;
   font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 0.04em;
-  padding: 0.45rem 1rem;
-  border-radius: $radius-pill;
+  letter-spacing: 0.03em;
+  padding: 0.4rem 0.9rem;
+  border-radius: 6px;
   transition: background 0.15s, color 0.15s, border-color 0.15s;
 
-  &:hover { color: $parchment; border-color: rgba($parchment, 0.4); }
+  &:hover { color: #FFFFFF; border-color: rgba(#FFFFFF, 0.4); }
 
   &--active {
-    background: rgba($parchment, 0.15);
-    border-color: rgba($parchment, 0.4);
-    color: $parchment;
+    background: $navy-mid;
+    border-color: $navy-mid;
+    color: #FFFFFF;
+    font-weight: 800;
   }
 }
 
-// ─── Month nav bar (still in dark zone) ───────────────────────────────────────
+// ─── Month nav bar — extends header, houses hero stat ─────────────────────────
 
 .tracker__summary-bar {
-  background: #2E4030;
-  padding: 0 $space-lg $space-2xl;
+  background: $olive-deep;
+  padding: 0 $space-lg $space-lg;
 
-  @media (min-width: $bp-md) { padding: 0 $space-xl $space-2xl; }
+  @media (min-width: $bp-md) { padding: 0 $space-xl $space-lg; }
+}
+
+// ─── Hero stat (total spent) ──────────────────────────────────────────────────
+
+.tracker__hero {
+  text-align: center;
+  padding: $space-md 0 $space-sm;
+
+  &__amount {
+    font-family: $font-heading;
+    font-size: clamp(2.4rem, 11vw, 3.8rem);
+    font-weight: 900;
+    color: #FFFFFF;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__label {
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(#FFFFFF, 0.42);
+    margin-top: 0.45rem;
+  }
+}
+
+// ─── Secondary stat row ───────────────────────────────────────────────────────
+
+.tracker__stat-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-xl;
+  padding: $space-sm 0 0;
+  border-top: 1px solid rgba(#FFFFFF, 0.12);
+  margin-top: $space-sm;
+}
+
+.tracker__stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+
+  &__label {
+    font-size: 0.55rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(#FFFFFF, 0.42);
+  }
+
+  &__val {
+    font-family: $font-heading;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: rgba(#FFFFFF, 0.92);
+    font-variant-numeric: tabular-nums;
+
+    &--over { color: $amber-light; }
+  }
+}
+
+.tracker__stat-sep {
+  width: 1px;
+  height: 22px;
+  background: rgba(#FFFFFF, 0.18);
+  flex-shrink: 0;
 }
 
 .month-nav {
@@ -79,23 +148,23 @@
 }
 
 .month-nav__arrow {
-  background: rgba($parchment, 0.1);
-  border: 1.5px solid rgba($parchment, 0.2);
-  color: rgba($parchment, 0.85);
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+  background: rgba(#FFFFFF, 0.1);
+  border: 1.5px solid rgba(#FFFFFF, 0.2);
+  color: rgba(#FFFFFF, 0.85);
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
   transition: background 0.15s, border-color 0.15s;
 
-  svg { width: 18px; height: 18px; }
+  svg { width: 16px; height: 16px; }
 
   &:hover {
-    background: rgba($parchment, 0.18);
-    border-color: rgba($parchment, 0.4);
+    background: rgba(#FFFFFF, 0.2);
+    border-color: rgba(#FFFFFF, 0.45);
   }
 }
 
@@ -110,31 +179,41 @@
 
 .month-nav__month {
   font-family: $font-heading;
-  font-size: 1.15rem;
-  font-weight: 800;
-  color: $parchment;
-  letter-spacing: 0.01em;
+  font-size: 1rem;
+  font-weight: 700;
+  color: rgba(#FFFFFF, 0.9);
+  letter-spacing: -0.01em;
   line-height: 1;
 
-  @media (min-width: $bp-sm) { font-size: 1.35rem; }
+  @media (min-width: $bp-sm) { font-size: 1.1rem; }
 }
 
 .month-nav__year {
   font-size: 0.65rem;
   font-weight: 600;
-  color: rgba($parchment, 0.48);
-  letter-spacing: 0.12em;
+  color: rgba(#FFFFFF, 0.5);
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
-// ─── Sections — white cards on cream background ───────────────────────────────
+// ─── Dashboard header zone (mirrors summary-bar for the dashboard tab) ────────
+
+.tracker__dash-bar {
+  background: $navy;
+  padding: $space-md $space-lg $space-2xl;
+
+  @media (min-width: $bp-md) { padding: $space-md $space-xl $space-2xl; }
+}
+
+// ─── Sections — white cards on cool blue-white background ─────────────────────
 
 .tracker__section {
   margin: $space-md $space-lg 0;
   background: $shell;
-  border-radius: $radius-lg;
+  border-radius: $radius-md;
   padding: $space-lg;
   box-shadow: $shadow-card;
+  border: 1px solid $fog-light;
 
   @media (min-width: $bp-md) {
     margin: $space-md $space-xl 0;
@@ -144,11 +223,11 @@
 
 .tracker__section-title {
   font-family: $font-heading;
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.07em;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: $color-label;
+  color: $navy;
   margin-bottom: $space-md;
 }
 
@@ -181,16 +260,16 @@
   border: 1px solid transparent;
   transition: opacity 0.3s;
 
-  &--syncing { color: $amber-light; border-color: rgba($amber-light, 0.3); }
-  &--online  { color: rgba($parchment, 0.4); }
+  &--syncing { color: $amber-light; border-color: rgba($amber-light, 0.4); }
+  &--online  { color: rgba(#FFFFFF, 0.4); }
   &--offline {
     color: $rust-mid;
-    border-color: rgba($rust-mid, 0.3);
-    background: rgba($rust-faint, 0.3);
+    border-color: rgba($rust-mid, 0.4);
+    background: rgba($rust-faint, 0.2);
   }
 }
 
-// ─── Small button ────────────────────────────────────────────────────────────
+// ─── Small buttons ────────────────────────────────────────────────────────────
 
 .btn--sm {
   font-size: 0.65rem;
@@ -207,4 +286,3 @@
 
   &:hover { border-color: $color-primary; color: $color-primary; background: $olive-faint; }
 }
-

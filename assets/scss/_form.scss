@@ -157,9 +157,9 @@
 // ─── Quick-add form (sits inside a .tracker__section white card) ──────────────
 
 .quick-add {
-  background: $olive-faint;
-  border: none;
-  border-radius: $radius-lg;
+  background: $shell;
+  border: 1.5px solid $fog-light;
+  border-radius: $radius-md;
   padding: $space-md $space-md $space-sm;
 
   @media (min-width: $bp-sm) { padding: $space-lg $space-lg $space-md; }
@@ -170,43 +170,43 @@
     justify-content: center;
     gap: 0.2rem;
     padding-bottom: $space-md;
-    border-bottom: 1.5px solid rgba($olive, 0.12);
+    border-bottom: 2px solid $fog-light;
     margin-bottom: $space-md;
   }
 
   &__currency {
     font-family: $font-heading;
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     font-weight: 700;
-    color: $olive-mid;
+    color: $color-primary;
     line-height: 1;
     padding-bottom: 4px;
   }
 
   &__amount {
     font-family: $font-heading;
-    font-size: 2.8rem;
-    font-weight: 800;
+    font-size: 3rem;
+    font-weight: 900;
     color: $color-text;
     background: transparent;
     border: none;
     outline: none;
-    width: 180px;
+    width: 190px;
     text-align: left;
     line-height: 1;
     padding: 0;
 
-    &::placeholder { color: rgba($fog, 0.7); }
+    &::placeholder { color: $fog; }
     &.is-error { color: $color-danger; }
 
-    @media (min-width: $bp-sm) { font-size: 3.2rem; width: 220px; }
+    @media (min-width: $bp-sm) { font-size: 3.5rem; width: 240px; }
   }
 
   &__cats {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.45rem;
-    margin-bottom: $space-md;
+    gap: 0.35rem;
+    margin-bottom: $space-sm;
 
     &.is-error .quick-add__cat-pill:not(.quick-add__cat-pill--active) {
       border-color: rgba($bordeaux, 0.4);
@@ -217,31 +217,31 @@
   &__cat-pill {
     display: inline-flex;
     align-items: center;
-    gap: 0.3rem;
+    gap: 0.25rem;
     background: $shell;
     border: 1.5px solid $fog-light;
-    border-radius: $radius-pill;
-    font-size: 0.74rem;
+    border-radius: 6px;
+    font-size: 0.72rem;
     font-weight: 600;
     color: $color-text-muted;
-    padding: 0.35rem 0.8rem;
+    padding: 0.28rem 0.65rem;
     transition: border-color 0.15s, background 0.15s, color 0.15s;
     white-space: nowrap;
     cursor: pointer;
-    box-shadow: $shadow-sm;
+    box-shadow: none;
 
     &:hover {
-      border-color: $olive-mid;
-      color: $olive-deep;
+      border-color: $color-primary;
+      color: $navy;
       background: $olive-faint;
     }
 
     &--active {
-      background: $olive-faint;
-      border-color: $olive-mid;
-      color: $olive-deep;
+      background: $navy-mid;
+      border-color: $navy-mid;
+      color: #FFFFFF;
       font-weight: 700;
-      box-shadow: 0 0 0 2px rgba($olive, 0.18);
+      box-shadow: none;
     }
   }
 
@@ -293,19 +293,19 @@
   &__notes {
     flex: 1;
     font-family: $font-body;
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     background: $shell;
     border: 1.5px solid $fog-light;
-    border-radius: $radius-pill;
-    padding: 0.45rem 1rem;
+    border-radius: 6px;
+    padding: 0.45rem 0.85rem;
     color: $color-text;
     outline: none;
     min-width: 0;
-    box-shadow: $shadow-sm;
-    transition: border-color 0.15s, box-shadow 0.15s;
+    box-shadow: none;
+    transition: border-color 0.15s;
 
     &::placeholder { color: $fog; }
-    &:focus { border-color: $olive-mid; box-shadow: 0 0 0 2px rgba($olive, 0.12); }
+    &:focus { border-color: $color-primary; box-shadow: 0 0 0 3px rgba($navy-mid, 0.1); }
   }
 
   &__advanced {
@@ -342,7 +342,7 @@
 
   &__advanced-body {
     padding-top: $space-sm;
-    border-top: 1.5px solid rgba($olive, 0.12);
+    border-top: 1.5px solid $fog-light;
     margin-top: 0.25rem;
 
     .expense-form__label {
@@ -352,15 +352,15 @@
     }
 
     .expense-form__input {
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       border: 1.5px solid $fog-light;
       background: $shell;
-      border-radius: $radius-pill;
-      padding: 0.45rem 1rem;
+      border-radius: 6px;
+      padding: 0.45rem 0.85rem;
 
       &:focus {
-        border-color: $olive-mid;
-        box-shadow: 0 0 0 2px rgba($olive, 0.12);
+        border-color: $color-primary;
+        box-shadow: 0 0 0 3px rgba($navy-mid, 0.1);
       }
     }
   }

@@ -696,11 +696,11 @@
       var left=tb-total;
       elBudgetLeftLabel.textContent='Budget Left';
       elBudgetLeft.textContent=left>=0?peso(left)+' left':peso(Math.abs(left))+' over';
-      elBudgetLeft.className='tracker__stat__val'+(left<0?' tracker__stat__val--over':'');
+      elBudgetLeft.className='summary-card__value summary-card__value--sm'+(left<0?' summary-card__value--over':'');
     } else {
       elBudgetLeftLabel.textContent='Entries';
       elBudgetLeft.textContent=monthly.length;
-      elBudgetLeft.className='tracker__stat__val';
+      elBudgetLeft.className='summary-card__value summary-card__value--sm';
     }
 
     renderInsights(monthly);
@@ -725,7 +725,7 @@
         :'';
       return '<article class="expense-item'+(selectedIds[e.id]?' expense-item--selected':'')+'" data-id="'+e.id+'" style="animation-delay:'+(i*0.04)+'s">'+
         checkboxHtml+
-        '<div class="expense-item__icon" aria-hidden="true">'+(CAT_EMOJI[e.category]||'•')+'</div>'+
+        '<div class="expense-item__icon" style="background:'+esc(CAT_COLORS[e.category]||'#64748B')+';" aria-hidden="true">'+(CAT_EMOJI[e.category]||'•')+'</div>'+
         '<div class="expense-item__body">'+
           '<div class="expense-item__cat">'+esc(e.category)+
             (e.isRecurring?'<span class="badge badge--recurring" title="Recurring">↻</span>':'')+

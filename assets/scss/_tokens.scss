@@ -1,53 +1,62 @@
-// ─── Wellness Palette ─────────────────────────────────────────────────────────
+// ─── Brand Palette ────────────────────────────────────────────────────────────
+
+// Navy — darkest (header, primary text)
+$navy:           #03045E;
+$navy-mid:       #023E8A;   // brand blue (buttons, active, accents)
+
+// Cyan scale — lightest end (faint states, backgrounds)
+$cyan-light:     #ADE8F4;   // visible light cyan
+$cyan-faint:     #CAF0F8;   // very light cyan
+$cyan-whisper:   #EBF9FC;   // approaching white
 
 // Surfaces
-$parchment:      #F5F2EC;   // warm cream page bg
-$parchment-dark: #EDE8DE;
-$shell:          #FFFFFF;   // white card surfaces
-$shell-dark:     #F0EAE0;   // warm off-white tracks / tags
-$fog:            #C8C2B6;   // muted border / placeholder
-$fog-light:      #E6E0D4;   // very subtle separator
+$parchment:      #F4FDFF;   // page background — near-white with cyan breath
+$parchment-dark: $cyan-whisper;
+$shell:          #FFFFFF;   // card surfaces
+$shell-dark:     #F1F5F9;   // tracks / tags / subtle raised bg
+$fog:            #94A3B8;   // placeholder / muted
+$fog-light:      #E2E8F0;   // borders / dividers
 
-// Sage — primary (calm, wellness green)
-$olive:          #7A9E80;
-$olive-deep:     #4E6B54;
-$olive-mid:      #94B49A;
-$olive-light:    #B4D0BA;
-$olive-faint:    #EAF3EB;
+// Primary aliases (used across all component files)
+$olive:          $navy-mid;
+$olive-deep:     $navy;
+$olive-mid:      $cyan-light;
+$olive-light:    $cyan-faint;
+$olive-faint:    $cyan-whisper;
 
-// Slate blue — neutral accent (pills, edit states)
-$amber:          #6E8FAD;
-$amber-light:    #8AAAC5;
-$amber-faint:    #EBF1F7;
+// Magenta — warning / attention
+$amber:          #BE185D;
+$amber-light:    #EC4899;
+$amber-faint:    #FDF2F8;
 
-// Muted plum — attention state (no red, no warm tones)
-$bordeaux:       #8270A8;
-$bordeaux-deep:  #614F8A;
-$bordeaux-mid:   #A896C4;
-$bordeaux-faint: #F1EDF8;
-$rust:           #8270A8;
-$rust-deep:      #614F8A;
-$rust-mid:       #A896C4;
-$rust-faint:     #F1EDF8;
+// Purple — attention (no red)
+$bordeaux:       #7C3AED;
+$bordeaux-deep:  #5B21B6;
+$bordeaux-mid:   #A78BFA;
+$bordeaux-faint: #EDE9FE;
+$rust:           #7C3AED;
+$rust-deep:      #5B21B6;
+$rust-mid:       #A78BFA;
+$rust-faint:     #EDE9FE;
 
-// Warm neutrals
-$bark:           #2A2724;   // header gradient start
-$bark-mid:       #38322D;   // header gradient end
-$moss:           #5C5852;   // labels, section titles
-$moss-mid:       #7A7570;   // secondary text
-$moss-light:     #A09C96;   // captions, placeholders
+// Neutrals
+$bark:           $navy;     // primary text
+$bark-mid:       #1E3A8A;
+$moss:           #64748B;   // labels
+$moss-mid:       #475569;   // secondary text
+$moss-light:     #94A3B8;   // captions / muted
 
 // ─── Semantic Aliases ────────────────────────────────────────────────────────
 
-$color-primary:       $olive;
-$color-primary-deep:  $olive-deep;
-$color-primary-mid:   $olive-mid;
-$color-primary-faint: $olive-faint;
+$color-primary:       $navy-mid;
+$color-primary-deep:  $navy;
+$color-primary-mid:   $cyan-light;
+$color-primary-faint: $cyan-whisper;
 
-$color-header-bg:     $bark;
-$color-summary-bg:    $bark-mid;
+$color-header-bg:     $navy;
+$color-summary-bg:    $navy;
 
-$color-text:          $bark;
+$color-text:          #0F172A;
 $color-text-muted:    $moss-mid;
 $color-text-subtle:   $moss-light;
 
@@ -59,12 +68,12 @@ $color-accent-faint:  $amber-faint;
 $color-danger:        $bordeaux;
 $color-danger-faint:  $bordeaux-faint;
 
-$on-dark: $parchment;
+$on-dark: #FFFFFF;
 
 // ─── Typography ──────────────────────────────────────────────────────────────
 
-$font-heading: 'Inter', sans-serif;
-$font-body:    'Albert Sans', sans-serif;
+$font-heading: 'DM Sans', sans-serif;
+$font-body:    'DM Sans', sans-serif;
 
 // ─── Spacing ─────────────────────────────────────────────────────────────────
 
@@ -85,10 +94,10 @@ $radius-pill: 999px;
 
 // ─── Shadows ─────────────────────────────────────────────────────────────────
 
-$shadow-sm:    0 1px 3px rgba(42, 39, 36, 0.06), 0 1px 2px rgba(42, 39, 36, 0.04);
-$shadow-card:  0 2px 8px rgba(42, 39, 36, 0.06), 0 4px 20px rgba(42, 39, 36, 0.04);
-$shadow-float: 0 4px 16px rgba(42, 39, 36, 0.09), 0 12px 36px rgba(42, 39, 36, 0.06);
-$shadow-modal: 0 8px 32px rgba(42, 39, 36, 0.18), 0 2px 8px rgba(42, 39, 36, 0.08);
+$shadow-sm:    0 1px 3px rgba(3,4,94,0.06), 0 1px 2px rgba(3,4,94,0.04);
+$shadow-card:  0 1px 3px rgba(3,4,94,0.06), 0 4px 16px rgba(3,4,94,0.05);
+$shadow-float: 0 4px 16px rgba(2,62,138,0.14), 0 12px 32px rgba(3,4,94,0.08);
+$shadow-modal: 0 8px 32px rgba(3,4,94,0.18), 0 2px 8px rgba(3,4,94,0.08);
 
 // ─── Breakpoints ─────────────────────────────────────────────────────────────
 

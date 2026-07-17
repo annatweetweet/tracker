@@ -696,11 +696,11 @@
       var left=tb-total;
       elBudgetLeftLabel.textContent='Budget Left';
       elBudgetLeft.textContent=left>=0?peso(left)+' left':peso(Math.abs(left))+' over';
-      elBudgetLeft.className='tracker__stat__val'+(left<0?' tracker__stat__val--over':'');
+      elBudgetLeft.className='summary-card__value summary-card__value--sm'+(left<0?' summary-card__value--over':'');
     } else {
       elBudgetLeftLabel.textContent='Entries';
       elBudgetLeft.textContent=monthly.length;
-      elBudgetLeft.className='tracker__stat__val';
+      elBudgetLeft.className='summary-card__value summary-card__value--sm';
     }
 
     renderInsights(monthly);
