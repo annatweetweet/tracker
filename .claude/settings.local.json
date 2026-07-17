@@ -5,7 +5,14 @@
       "Bash(git checkout *)",
       "Bash(git ls-tree *)",
       "Bash(python3 *)",
-      "Bash(hugo --gc --minify --config hugo.toml -e production --baseURL \"https://agb.com/\")"
+      "Bash(hugo --gc --minify --config hugo.toml -e production --baseURL \"https://agb.com/\")",
+      "Bash(hugo version *)",
+      "Bash(gzip -c public/css/*.css)",
+      "Bash(gzip -c public/js/*.js)",
+      "Bash(node --check assets/js/tracker.js)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" -m 10 \"https://vvqjrysccdondikgrsey.supabase.co/rest/v1/expenses?limit=1\" -H \"apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ2cWpyeXNjY2RvbmRpa2dyc2V5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM0MTQ5ODQsImV4cCI6MjA5ODk5MDk4NH0.LBkBp7TbcUEgcJtZCF6_VD0stCV9ZjFJMhZzZlDUaic\" -H \"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ2cWpyeXNjY2RvbmRpa2dyc2V5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM0MTQ5ODQsImV4cCI6MjA5ODk5MDk4NH0.LBkBp7TbcUEgcJtZCF6_VD0stCV9ZjFJMhZzZlDUaic\")",
+      "Bash(curl -s -m 10 \"https://vvqjrysccdondikgrsey.supabase.co/rest/v1/expenses?limit=3&select=id,client_id,amount,category\" -H \"apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ2cWpyeXNjY2RvbmRpa2dyc2V5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM0MTQ5ODQsImV4cCI6MjA5ODk5MDk4NH0.LBkBp7TbcUEgcJtZCF6_VD0stCV9ZjFJMhZzZlDUaic\" -H \"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ2cWpyeXNjY2RvbmRpa2dyc2V5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM0MTQ5ODQsImV4cCI6MjA5ODk5MDk4NH0.LBkBp7TbcUEgcJtZCF6_VD0stCV9ZjFJMhZzZlDUaic\")",
+      "Bash(curl -s -o /dev/null -w \"server:%{http_code}\\\\n\" http://localhost:8899/)"
     ]
   }
 }

@@ -58,7 +58,20 @@
   var CATEGORIES   = ['Health','Beauty','Food / Groceries','Vacation / Relaxation / Eating Out','House','Self Improvement','Gadgets','Clothing','Transportation','Gifts','Government Savings'];
   var CAT_EMOJI    = {'Health':'🩺','Beauty':'💄','Food / Groceries':'🛒','Vacation / Relaxation / Eating Out':'🌴','House':'🏠','Self Improvement':'📚','Gadgets':'💻','Clothing':'👗','Transportation':'🚗','Gifts':'🎁','Government Savings':'🏛️'};
 
-  var CHART_COLORS = ['#7A3018','#A0621A','#3E4832','#7A2445','#C48A3A','#5E6A50','#A04828','#C4896A','#8A9478','#5C1A30','#2E2010'];
+  var CAT_COLORS = {
+    'Health':                            '#0891B2',
+    'Beauty':                            '#A855F7',
+    'Food / Groceries':                  '#D97706',
+    'Vacation / Relaxation / Eating Out':'#059669',
+    'House':                             '#6366F1',
+    'Self Improvement':                  '#7C3AED',
+    'Gadgets':                           '#2563EB',
+    'Clothing':                          '#06B6D4',
+    'Transportation':                    '#64748B',
+    'Gifts':                             '#0D9488',
+    'Government Savings':                '#16A34A'
+  };
+  var CHART_COLORS = ['#0891B2','#A855F7','#D97706','#059669','#6366F1','#7C3AED','#2563EB','#06B6D4','#64748B','#0D9488','#16A34A'];
 
   // ─── State ───────────────────────────────────────────────────────────────────
 
@@ -134,6 +147,9 @@
   // ─── Helpers ─────────────────────────────────────────────────────────────────
 
   function peso(n){ return '₱'+Number(n).toLocaleString('en-PH',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+  // Local-time date string. toISOString() converts to UTC, which shifts the
+  // stored date back a day for UTC+ timezones (and into the previous month on the 1st).
+  function localDate(y,m,d){ return y+'-'+('0'+(m+1)).slice(-2)+'-'+('0'+d).slice(-2)+'T00:00:00'; }
   function fmtDate(iso){ var d=new Date(iso); return MONTHS_SHORT[d.getMonth()]+' '+d.getDate(); }
   function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
   function monthlyExp(y,m){ return expenses.filter(function(e){ var d=new Date(e.date); return d.getFullYear()===y&&d.getMonth()===m; }); }
@@ -155,7 +171,7 @@
       var len = frac * circ;
       var gap = Math.min(1.5, len * 0.04);
       var drawLen = Math.max(0, len - gap);
-      var color = CHART_COLORS[i % CHART_COLORS.length];
+      var color = CAT_COLORS[cat] || CHART_COLORS[i % CHART_COLORS.length];
       var pct = (frac * 100).toFixed(0);
 
       segs += '<circle cx="'+CX+'" cy="'+CY+'" r="'+R+'" fill="none"'+
@@ -177,14 +193,14 @@
     container.innerHTML =
       '<div class="donut-chart__svg-wrap">'+
         '<svg class="donut-chart__svg" viewBox="0 0 120 120" aria-hidden="true">'+
-          '<circle cx="'+CX+'" cy="'+CY+'" r="'+R+'" fill="none" stroke="#DDD0BE" stroke-width="'+SW+'"/>'+
+          '<circle cx="'+CX+'" cy="'+CY+'" r="'+R+'" fill="none" stroke="#E2E8F0" stroke-width="'+SW+'"/>'+
           segs+
           '<text x="'+CX+'" y="'+(CY-5)+'" text-anchor="middle"'+
-            ' font-family="Albert Sans, sans-serif" font-size="5.5" font-weight="500"'+
-            ' fill="#5E6A50" letter-spacing="1">TOTAL</text>'+
+            ' font-family="DM Sans, sans-serif" font-size="5.5" font-weight="500"'+
+            ' fill="#94A3B8" letter-spacing="1">TOTAL</text>'+
           '<text x="'+CX+'" y="'+(CY+7)+'" text-anchor="middle"'+
-            ' font-family="Unbounded, sans-serif" font-size="6.5" font-weight="700"'+
-            ' fill="#1C1409">'+peso(total)+'</text>'+
+            ' font-family="DM Sans, sans-serif" font-size="7" font-weight="800"'+
+            ' fill="#0F172A">'+peso(total)+'</text>'+
         '</svg>'+
       '</div>'+
       '<div class="donut-chart__legend">'+legend+'</div>';
@@ -313,16 +329,18 @@
     monthly.forEach(function(e){ catSpend[e.category]=(catSpend[e.category]||0)+e.amount; });
     elBudgetList.innerHTML = CATEGORIES.filter(function(c){ return parseFloat(budgets[c])>0; }).map(function(c){
       var budget=parseFloat(budgets[c])||0, spent=catSpend[c]||0;
-      var pct=Math.min((spent/budget)*100,100).toFixed(1), over=spent>budget;
-      var cls=over?'budget-bar__fill--over':pct>80?'budget-bar__fill--warn':'';
+      var rawPct=(spent/budget)*100, pct=Math.min(rawPct,100).toFixed(1), over=spent>budget;
+      var cls=over?'budget-bar__fill--over':rawPct>80?'budget-bar__fill--warn':'';
+      var chipColor=CAT_COLORS[c]||'#64748B';
       return '<div class="budget-bar">'+
         '<div class="budget-bar__header">'+
-          '<span class="budget-bar__cat">'+(CAT_EMOJI[c]||'')+' '+esc(c.split('/')[0].trim())+'</span>'+
+          '<span class="budget-bar__chip" style="background:'+esc(chipColor)+';color:#fff;">'+(CAT_EMOJI[c]||'')+'</span>'+
+          '<span class="budget-bar__cat">'+esc(c.split('/')[0].trim())+'</span>'+
           buildSparkline(c)+
           '<span class="budget-bar__amounts">'+peso(spent)+' <span class="budget-bar__of">of</span> '+peso(budget)+'</span>'+
         '</div>'+
         '<div class="budget-bar__track"><div class="budget-bar__fill '+cls+'" style="width:'+pct+'%"></div></div>'+
-        (over?'<p class="budget-bar__warning">Over by '+peso(spent-budget)+'</p>':'')+
+        '<p class="budget-bar__pct">'+(over?'Over by '+peso(spent-budget):rawPct.toFixed(0)+'% used')+'</p>'+
       '</div>';
     }).join('');
   }
@@ -384,7 +402,7 @@
         category: orig.category,
         payment: orig.payment,
         notes: orig.notes,
-        date: new Date(viewYear, viewMonth, 1).toISOString(),
+        date: localDate(viewYear, viewMonth, 1),
         isRecurring: orig.isRecurring,
         isInstallment: orig.isInstallment,
         installmentMonths: orig.installmentMonths,
@@ -444,13 +462,17 @@
     var rows=CATEGORIES.filter(function(c){return parseFloat(ab[c])>0;}).map(function(c){
       var budget=parseFloat(ab[c])||0, spent=catSpend[c]||0;
       totalBudgeted+=budget; totalSpent+=spent;
-      var pct=Math.min((spent/budget)*100,100).toFixed(1), over=spent>budget;
-      var cls=over?'budget-bar__fill--over':pct>80?'budget-bar__fill--warn':'';
+      var rawPct=(spent/budget)*100, pct=Math.min(rawPct,100).toFixed(1), over=spent>budget;
+      var cls=over?'budget-bar__fill--over':rawPct>80?'budget-bar__fill--warn':'';
+      var chipColor=CAT_COLORS[c]||'#64748B';
       return '<div class="budget-bar">'+
-        '<div class="budget-bar__header"><span class="budget-bar__cat">'+(CAT_EMOJI[c]||'')+' '+esc(c.split('/')[0].trim())+'</span>'+
-        '<span class="budget-bar__amounts">'+peso(spent)+' <span class="budget-bar__of">of</span> '+peso(budget)+'</span></div>'+
+        '<div class="budget-bar__header">'+
+          '<span class="budget-bar__chip" style="background:'+esc(chipColor)+';color:#fff;">'+(CAT_EMOJI[c]||'')+'</span>'+
+          '<span class="budget-bar__cat">'+esc(c.split('/')[0].trim())+'</span>'+
+          '<span class="budget-bar__amounts">'+peso(spent)+' <span class="budget-bar__of">of</span> '+peso(budget)+'</span>'+
+        '</div>'+
         '<div class="budget-bar__track"><div class="budget-bar__fill '+cls+'" style="width:'+pct+'%"></div></div>'+
-        (over?'<p class="budget-bar__warning">Over by '+peso(spent-budget)+'</p>':'')+
+        '<p class="budget-bar__pct">'+(over?'Over by '+peso(spent-budget):rawPct.toFixed(0)+'% used')+'</p>'+
       '</div>';
     }).join('');
     var op=Math.min((totalSpent/totalBudgeted)*100,100).toFixed(1), oo=totalSpent>totalBudgeted;
@@ -543,7 +565,11 @@
     if(isInstallment&&(!installmentMonths||installmentMonths<2)){if(elInstallmentMonths)elInstallmentMonths.classList.add('is-error');valid=false;}else{if(elInstallmentMonths)elInstallmentMonths.classList.remove('is-error');}
     if(!valid){showError('Please choose a category and enter an amount.');return;}
 
-    var entry={id:null,amount:parseFloat(parseFloat(rawAmt).toFixed(2)),category:cat,payment:payment||'Cash',notes:notes,date:new Date(viewYear,viewMonth,today.getDate()).toISOString(),isRecurring:isRecurring,isInstallment:isInstallment,installmentMonths:isInstallment?installmentMonths:null,installmentCurrent:isInstallment?1:null};
+    var monthlyAmt=isInstallment&&installmentMonths>0?parseFloat(rawAmt)/installmentMonths:parseFloat(rawAmt);
+    // Clamp the day so logging into a shorter month (e.g. Feb while today is the 31st)
+    // does not roll the entry over into the next month.
+    var lastDay=new Date(viewYear,viewMonth+1,0).getDate();
+    var entry={id:null,amount:parseFloat(monthlyAmt.toFixed(2)),category:cat,payment:payment||'Cash',notes:notes,date:localDate(viewYear,viewMonth,Math.min(today.getDate(),lastDay)),isRecurring:isRecurring,isInstallment:isInstallment,installmentMonths:isInstallment?installmentMonths:null,installmentCurrent:isInstallment?1:null};
     elAddBtn.disabled=true; elAddBtn.textContent='Adding...';
     sbInsert(entry).then(function(id){entry.id=id;}).catch(function(){entry.id=Date.now();})
       .then(function(){expenses.unshift(entry);saveLocal();populateYears();resetForm();renderTracker();elAddBtn.disabled=false;elAddBtn.textContent='Add';});
@@ -625,7 +651,10 @@
     var valid=true;
     if(!rawAmt||isNaN(rawAmt)||parseFloat(rawAmt)<=0){elModalAmt.classList.add('is-error');valid=false;}else{elModalAmt.classList.remove('is-error');}
     if(!cat){elModalCat.classList.add('is-error');valid=false;}else{elModalCat.classList.remove('is-error');}
+    if(isInstallment&&(!installmentMonths||installmentMonths<2)){elModalInstallmentMonths.classList.add('is-error');valid=false;}else{elModalInstallmentMonths.classList.remove('is-error');}
     if(!valid){elModalError.textContent='Amount and category are required.';elModalError.hidden=false;return;}
+    // Modal shows the per-month amount, so save it as-is (the add form divides
+    // the total by months once; dividing again here would corrupt the amount).
     var fields={amount:parseFloat(parseFloat(rawAmt).toFixed(2)),category:cat,payment:payment,notes:notes,isRecurring:isRecurring,isInstallment:isInstallment,installmentMonths:isInstallment?installmentMonths:null};
     elModalSave.disabled=true; elModalSave.textContent='Saving...';
     sbUpdate(id,fields).catch(function(){});
@@ -675,11 +704,11 @@
       var left=tb-total;
       elBudgetLeftLabel.textContent='Budget Left';
       elBudgetLeft.textContent=left>=0?peso(left)+' left':peso(Math.abs(left))+' over';
-      elBudgetLeft.className='summary-card__value summary-card__value--sm'+(left<0?' summary-card__value--over':'');
+      elBudgetLeft.className='tracker__stat__val'+(left<0?' tracker__stat__val--over':'');
     } else {
       elBudgetLeftLabel.textContent='Entries';
       elBudgetLeft.textContent=monthly.length;
-      elBudgetLeft.className='summary-card__value summary-card__value--sm';
+      elBudgetLeft.className='tracker__stat__val';
     }
 
     renderInsights(monthly);
@@ -689,10 +718,10 @@
     if(sorted.length){elChartSection.hidden=false;buildDonutChart(elCatChart,sorted,total);}
     else{elChartSection.hidden=true;elCatChart.innerHTML='';}
 
+    elExpenseList.className='expense-list'+(selectMode?' expense-list--select-mode':'');
     if(!monthly.length){elExpenseList.innerHTML='<p class="expense-list__empty">No expenses logged yet.</p>';return;}
 
     var byDate=monthly.slice().sort(function(a,b){return new Date(b.date)-new Date(a.date);});
-    elExpenseList.className='expense-list'+(selectMode?' expense-list--select-mode':'');
     elExpenseList.innerHTML=byDate.map(function(e,i){
       var installBadge='';
       if(e.isInstallment&&e.installmentMonths){

@@ -77,7 +77,7 @@
   &__amount {
     font-family: $font-heading;
     font-size: clamp(2.4rem, 11vw, 3.8rem);
-    font-weight: 900;
+    font-weight: 800; // heaviest weight the Google Fonts request loads
     color: #FFFFFF;
     letter-spacing: -0.03em;
     line-height: 1;

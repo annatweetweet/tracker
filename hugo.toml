@@ -2,6 +2,9 @@ baseURL = "https://agb.com/"
 languageCode = "en-us"
 title = "Anna's Finances Tracker"
 
+# Single-page app: no taxonomies or RSS feeds needed
+disableKinds = ["taxonomy", "term", "rss"]
+
 [permalinks]
   [permalinks.page]
     tracker = "/tracker/:slug/"

@@ -186,7 +186,7 @@
   &__amount {
     font-family: $font-heading;
     font-size: 3rem;
-    font-weight: 900;
+    font-weight: 800; // heaviest weight the Google Fonts request loads
     color: $color-text;
     background: transparent;
     border: none;

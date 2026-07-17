@@ -147,6 +147,9 @@
   // ─── Helpers ─────────────────────────────────────────────────────────────────
 
   function peso(n){ return '₱'+Number(n).toLocaleString('en-PH',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+  // Local-time date string. toISOString() converts to UTC, which shifts the
+  // stored date back a day for UTC+ timezones (and into the previous month on the 1st).
+  function localDate(y,m,d){ return y+'-'+('0'+(m+1)).slice(-2)+'-'+('0'+d).slice(-2)+'T00:00:00'; }
   function fmtDate(iso){ var d=new Date(iso); return MONTHS_SHORT[d.getMonth()]+' '+d.getDate(); }
   function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
   function monthlyExp(y,m){ return expenses.filter(function(e){ var d=new Date(e.date); return d.getFullYear()===y&&d.getMonth()===m; }); }
@@ -193,10 +196,10 @@
           '<circle cx="'+CX+'" cy="'+CY+'" r="'+R+'" fill="none" stroke="#E2E8F0" stroke-width="'+SW+'"/>'+
           segs+
           '<text x="'+CX+'" y="'+(CY-5)+'" text-anchor="middle"'+
-            ' font-family="Inter, sans-serif" font-size="5.5" font-weight="500"'+
+            ' font-family="DM Sans, sans-serif" font-size="5.5" font-weight="500"'+
             ' fill="#94A3B8" letter-spacing="1">TOTAL</text>'+
           '<text x="'+CX+'" y="'+(CY+7)+'" text-anchor="middle"'+
-            ' font-family="Inter, sans-serif" font-size="7" font-weight="800"'+
+            ' font-family="DM Sans, sans-serif" font-size="7" font-weight="800"'+
             ' fill="#0F172A">'+peso(total)+'</text>'+
         '</svg>'+
       '</div>'+
@@ -399,7 +402,7 @@
         category: orig.category,
         payment: orig.payment,
         notes: orig.notes,
-        date: new Date(viewYear, viewMonth, 1).toISOString(),
+        date: localDate(viewYear, viewMonth, 1),
         isRecurring: orig.isRecurring,
         isInstallment: orig.isInstallment,
         installmentMonths: orig.installmentMonths,
@@ -563,7 +566,10 @@
     if(!valid){showError('Please choose a category and enter an amount.');return;}
 
     var monthlyAmt=isInstallment&&installmentMonths>0?parseFloat(rawAmt)/installmentMonths:parseFloat(rawAmt);
-    var entry={id:null,amount:parseFloat(monthlyAmt.toFixed(2)),category:cat,payment:payment||'Cash',notes:notes,date:new Date(viewYear,viewMonth,today.getDate()).toISOString(),isRecurring:isRecurring,isInstallment:isInstallment,installmentMonths:isInstallment?installmentMonths:null,installmentCurrent:isInstallment?1:null};
+    // Clamp the day so logging into a shorter month (e.g. Feb while today is the 31st)
+    // does not roll the entry over into the next month.
+    var lastDay=new Date(viewYear,viewMonth+1,0).getDate();
+    var entry={id:null,amount:parseFloat(monthlyAmt.toFixed(2)),category:cat,payment:payment||'Cash',notes:notes,date:localDate(viewYear,viewMonth,Math.min(today.getDate(),lastDay)),isRecurring:isRecurring,isInstallment:isInstallment,installmentMonths:isInstallment?installmentMonths:null,installmentCurrent:isInstallment?1:null};
     elAddBtn.disabled=true; elAddBtn.textContent='Adding...';
     sbInsert(entry).then(function(id){entry.id=id;}).catch(function(){entry.id=Date.now();})
       .then(function(){expenses.unshift(entry);saveLocal();populateYears();resetForm();renderTracker();elAddBtn.disabled=false;elAddBtn.textContent='Add';});
@@ -645,9 +651,11 @@
     var valid=true;
     if(!rawAmt||isNaN(rawAmt)||parseFloat(rawAmt)<=0){elModalAmt.classList.add('is-error');valid=false;}else{elModalAmt.classList.remove('is-error');}
     if(!cat){elModalCat.classList.add('is-error');valid=false;}else{elModalCat.classList.remove('is-error');}
+    if(isInstallment&&(!installmentMonths||installmentMonths<2)){elModalInstallmentMonths.classList.add('is-error');valid=false;}else{elModalInstallmentMonths.classList.remove('is-error');}
     if(!valid){elModalError.textContent='Amount and category are required.';elModalError.hidden=false;return;}
-    var editMonthlyAmt=isInstallment&&installmentMonths>0?parseFloat(rawAmt)/installmentMonths:parseFloat(rawAmt);
-    var fields={amount:parseFloat(editMonthlyAmt.toFixed(2)),category:cat,payment:payment,notes:notes,isRecurring:isRecurring,isInstallment:isInstallment,installmentMonths:isInstallment?installmentMonths:null};
+    // Modal shows the per-month amount, so save it as-is (the add form divides
+    // the total by months once; dividing again here would corrupt the amount).
+    var fields={amount:parseFloat(parseFloat(rawAmt).toFixed(2)),category:cat,payment:payment,notes:notes,isRecurring:isRecurring,isInstallment:isInstallment,installmentMonths:isInstallment?installmentMonths:null};
     elModalSave.disabled=true; elModalSave.textContent='Saving...';
     sbUpdate(id,fields).catch(function(){});
     var idx=expenses.findIndex(function(e){return e.id===id;});
@@ -710,10 +718,10 @@
     if(sorted.length){elChartSection.hidden=false;buildDonutChart(elCatChart,sorted,total);}
     else{elChartSection.hidden=true;elCatChart.innerHTML='';}
 
+    elExpenseList.className='expense-list'+(selectMode?' expense-list--select-mode':'');
     if(!monthly.length){elExpenseList.innerHTML='<p class="expense-list__empty">No expenses logged yet.</p>';return;}
 
     var byDate=monthly.slice().sort(function(a,b){return new Date(b.date)-new Date(a.date);});
-    elExpenseList.className='expense-list'+(selectMode?' expense-list--select-mode':'');
     elExpenseList.innerHTML=byDate.map(function(e,i){
       var installBadge='';
       if(e.isInstallment&&e.installmentMonths){
