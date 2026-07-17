@@ -1,11 +1,12 @@
 @import 'tokens';
 
+// ─── Modal/dashboard expense form (inside modal or section card) ──────────────
+
 .expense-form {
-  background: $shell;
-  border: 1px solid $fog-light;
-  border-radius: $radius-lg;
-  padding: $space-md;
-  @media (min-width: $bp-sm) { padding: $space-lg; }
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
 
   &__row {
     display: grid;
@@ -24,8 +25,8 @@
 
   &__label {
     font-size: 0.65rem;
-    font-weight: 600;
-    letter-spacing: 0.09em;
+    font-weight: 700;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     color: $color-label;
   }
@@ -34,22 +35,24 @@
     font-family: $font-body;
     font-size: 0.9rem;
     background: $parchment;
-    border: 1px solid $fog;
+    border: 1.5px solid $fog-light;
     border-radius: $radius-md;
-    padding: 0.6rem 0.75rem;
+    padding: 0.65rem 0.9rem;
     color: $color-text;
     outline: none;
     width: 100%;
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
 
     &::placeholder { color: $fog; }
+
     &:focus {
       border-color: $color-primary;
-      box-shadow: 0 0 0 3px rgba($rust, 0.1);
+      box-shadow: 0 0 0 3px rgba($olive, 0.12);
     }
+
     &.is-error {
       border-color: $color-danger;
-      box-shadow: 0 0 0 3px rgba($rust, 0.12);
+      box-shadow: 0 0 0 3px rgba($bordeaux, 0.12);
     }
   }
 
@@ -60,11 +63,11 @@
     @extend %input-base;
     appearance: none;
     -webkit-appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%233E4832' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%237A9E80' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
     background-repeat: no-repeat;
-    background-position: right 0.75rem center;
+    background-position: right 0.85rem center;
     background-color: $parchment;
-    padding-right: 2.25rem;
+    padding-right: 2.4rem;
     cursor: pointer;
   }
 
@@ -72,9 +75,9 @@
     font-size: 0.78rem;
     color: $color-danger;
     margin-bottom: $space-sm;
-    padding: 0.4rem 0.6rem;
+    padding: 0.45rem 0.7rem;
     background: $color-danger-faint;
-    border-radius: $radius-sm;
+    border-radius: $radius-md;
     border-left: 3px solid $color-danger;
     &[hidden] { display: none; }
   }
@@ -87,7 +90,8 @@
   }
 }
 
-// ─── Modal variant ~ no card shell, modal provides the container ──────────────
+// ─── Modal variant ────────────────────────────────────────────────────────────
+
 .expense-form--modal {
   background: transparent;
   border: none;
@@ -114,11 +118,11 @@
 
 .expense-form__toggle-track {
   position: relative;
-  width: 36px;
-  height: 20px;
-  background: $fog;
+  width: 38px;
+  height: 22px;
+  background: $fog-light;
   border-radius: $radius-pill;
-  border: 1px solid $fog;
+  border: 1.5px solid $fog;
   flex-shrink: 0;
   transition: background 0.2s, border-color 0.2s;
 
@@ -134,7 +138,7 @@
   left: 2px;
   width: 14px;
   height: 14px;
-  background: $parchment;
+  background: $shell;
   border-radius: 50%;
   transition: transform 0.2s;
   box-shadow: 0 1px 3px rgba($bark, 0.2);
@@ -145,20 +149,228 @@
 }
 
 .expense-form__toggle-label {
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   color: $color-text-muted;
   font-weight: 500;
 }
 
-// ─── Budget button ────────────────────────────────────────────────────────────
+// ─── Quick-add form (sits inside a .tracker__section white card) ──────────────
 
-.btn--budget {
-  margin-top: 0;
-  margin-left: auto;
-  font-size: 0.65rem;
-  padding: 0.5rem 0.85rem;
-  color: $moss-mid;
-  border-color: $fog-light;
+.quick-add {
+  background: $olive-faint;
+  border: none;
+  border-radius: $radius-lg;
+  padding: $space-md $space-md $space-sm;
 
-  &:hover { border-color: $color-primary; color: $color-primary; }
+  @media (min-width: $bp-sm) { padding: $space-lg $space-lg $space-md; }
+
+  &__amount-wrap {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 0.2rem;
+    padding-bottom: $space-md;
+    border-bottom: 1.5px solid rgba($olive, 0.12);
+    margin-bottom: $space-md;
+  }
+
+  &__currency {
+    font-family: $font-heading;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: $olive-mid;
+    line-height: 1;
+    padding-bottom: 4px;
+  }
+
+  &__amount {
+    font-family: $font-heading;
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: $color-text;
+    background: transparent;
+    border: none;
+    outline: none;
+    width: 180px;
+    text-align: left;
+    line-height: 1;
+    padding: 0;
+
+    &::placeholder { color: rgba($fog, 0.7); }
+    &.is-error { color: $color-danger; }
+
+    @media (min-width: $bp-sm) { font-size: 3.2rem; width: 220px; }
+  }
+
+  &__cats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-bottom: $space-md;
+
+    &.is-error .quick-add__cat-pill:not(.quick-add__cat-pill--active) {
+      border-color: rgba($bordeaux, 0.4);
+      background: rgba($bordeaux, 0.04);
+    }
+  }
+
+  &__cat-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    background: $shell;
+    border: 1.5px solid $fog-light;
+    border-radius: $radius-pill;
+    font-size: 0.74rem;
+    font-weight: 600;
+    color: $color-text-muted;
+    padding: 0.35rem 0.8rem;
+    transition: border-color 0.15s, background 0.15s, color 0.15s;
+    white-space: nowrap;
+    cursor: pointer;
+    box-shadow: $shadow-sm;
+
+    &:hover {
+      border-color: $olive-mid;
+      color: $olive-deep;
+      background: $olive-faint;
+    }
+
+    &--active {
+      background: $olive-faint;
+      border-color: $olive-mid;
+      color: $olive-deep;
+      font-weight: 700;
+      box-shadow: 0 0 0 2px rgba($olive, 0.18);
+    }
+  }
+
+  &__bottom-row {
+    display: flex;
+    gap: $space-sm;
+    align-items: center;
+    margin-bottom: $space-sm;
+    flex-wrap: wrap;
+
+    @media (min-width: $bp-sm) { flex-wrap: nowrap; }
+  }
+
+  &__payment-toggle {
+    display: flex;
+    border: 1.5px solid $fog-light;
+    border-radius: $radius-pill;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: $shell;
+    box-shadow: $shadow-sm;
+  }
+
+  &__pay-btn {
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    font-family: $font-heading;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: $color-text-muted;
+    padding: 0.45rem 0.95rem;
+    transition: background 0.15s, color 0.15s;
+    cursor: pointer;
+
+    &--active {
+      background: $olive;
+      color: $shell;
+    }
+
+    &:not(.quick-add__pay-btn--active):hover {
+      background: $olive-faint;
+      color: $olive;
+    }
+  }
+
+  &__notes {
+    flex: 1;
+    font-family: $font-body;
+    font-size: 0.9rem;
+    background: $shell;
+    border: 1.5px solid $fog-light;
+    border-radius: $radius-pill;
+    padding: 0.45rem 1rem;
+    color: $color-text;
+    outline: none;
+    min-width: 0;
+    box-shadow: $shadow-sm;
+    transition: border-color 0.15s, box-shadow 0.15s;
+
+    &::placeholder { color: $fog; }
+    &:focus { border-color: $olive-mid; box-shadow: 0 0 0 2px rgba($olive, 0.12); }
+  }
+
+  &__advanced {
+    margin-bottom: $space-sm;
+
+    summary {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: $color-text-subtle;
+      cursor: pointer;
+      user-select: none;
+      list-style: none;
+      padding: 0.3rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+
+      &::-webkit-details-marker { display: none; }
+      &::before {
+        content: '▾';
+        font-size: 0.9rem;
+        line-height: 1;
+        display: inline-block;
+        transition: transform 0.2s;
+      }
+
+      &:hover { color: $color-primary; }
+    }
+
+    &[open] summary::before { transform: rotate(-180deg); }
+  }
+
+  &__advanced-body {
+    padding-top: $space-sm;
+    border-top: 1.5px solid rgba($olive, 0.12);
+    margin-top: 0.25rem;
+
+    .expense-form__label {
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      color: $color-text-muted;
+    }
+
+    .expense-form__input {
+      font-size: 0.9rem;
+      border: 1.5px solid $fog-light;
+      background: $shell;
+      border-radius: $radius-pill;
+      padding: 0.45rem 1rem;
+
+      &:focus {
+        border-color: $olive-mid;
+        box-shadow: 0 0 0 2px rgba($olive, 0.12);
+      }
+    }
+  }
+
+  &__actions {
+    display: flex;
+    gap: $space-sm;
+    align-items: center;
+    margin-top: $space-sm;
+  }
+
+  &__submit { flex: 1; margin-top: 0; }
 }

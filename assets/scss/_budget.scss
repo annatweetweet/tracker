@@ -8,24 +8,34 @@
   gap: $space-md;
 }
 
+.budget-list__empty {
+  font-size: 0.82rem;
+  color: $color-text-subtle;
+  font-style: italic;
+  padding: $space-sm 0;
+}
+
 .budget-bar {
   &__header {
     display: flex;
-    justify-content: space-between;
-    align-items: baseline;
+    align-items: center;
+    gap: $space-sm;
     margin-bottom: 5px;
   }
 
   &__cat {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-weight: 600;
     color: $color-text;
+    flex: 1;
   }
 
   &__amounts {
     font-family: $font-heading;
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     color: $color-text-muted;
+    margin-left: auto;
+    font-variant-numeric: tabular-nums;
   }
 
   &__of {
@@ -37,42 +47,35 @@
   }
 
   &__track {
-    height: 8px;
+    height: 7px;
     background: $shell-dark;
     border-radius: $radius-pill;
     overflow: hidden;
+    margin-top: 2px;
   }
 
   &__fill {
     height: 100%;
     border-radius: $radius-pill;
     background: $color-primary;
-    transition: width 0.4s ease;
+    transition: width 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
 
     &--warn { background: $amber; }
-    &--over { background: $rust; }
+    &--over { background: $bordeaux; }
   }
 
   &__warning {
     font-size: 0.7rem;
-    color: $rust;
-    margin-top: 3px;
-    font-weight: 500;
+    color: $bordeaux;
+    margin-top: 4px;
+    font-weight: 600;
   }
-}
 
-// ─── Budget modal hint ────────────────────────────────────────────────────────
-
-.modal__hint {
-  font-size: 0.8rem;
-  color: $color-text-muted;
-  margin-bottom: $space-md;
-}
-
-// ─── Modal wide variant ───────────────────────────────────────────────────────
-
-.modal--wide {
-  max-width: 560px;
+  &--total {
+    margin-top: $space-md;
+    padding-top: $space-md;
+    border-top: 1px solid $fog-light;
+  }
 }
 
 // ─── Badges ───────────────────────────────────────────────────────────────────
@@ -80,9 +83,9 @@
 .badge {
   display: inline-flex;
   align-items: center;
-  font-size: 0.65rem;
+  font-size: 0.62rem;
   font-weight: 700;
-  padding: 0 5px;
+  padding: 0 6px;
   border-radius: $radius-pill;
   vertical-align: middle;
   margin-left: 4px;
@@ -90,15 +93,20 @@
   &--recurring {
     background: $amber-faint;
     color: $amber;
-    border: 1px solid rgba($amber, 0.3);
+    border: 1px solid rgba($amber, 0.25);
   }
 }
 
-// ─── Empty state ──────────────────────────────────────────────────────────────
+// ─── Inline sparkline ─────────────────────────────────────────────────────────
 
-.budget-list__empty {
-  font-size: 0.82rem;
-  color: $color-text-subtle;
-  font-style: italic;
-  padding: $space-sm 0;
+.sparkline {
+  width: 54px;
+  height: 20px;
+  flex-shrink: 0;
+  color: $olive-mid;
+  overflow: visible;
+
+  &--rising  { color: $olive; }
+  &--falling { color: $bordeaux-mid; }
+  &--flat    { color: $fog; }
 }

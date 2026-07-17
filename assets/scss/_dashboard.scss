@@ -19,25 +19,7 @@
   }
 }
 
-// ─── Dashboard section spacing fix ───────────────────────────────────────────
-// .expense-form inside .tracker__section already gets top padding;
-// add explicit bottom padding so it breathes before the summary bar.
-
-#view-dashboard .tracker__section:first-child {
-  padding-bottom: $space-lg;
-
-  @media (min-width: $bp-md) {
-    padding-bottom: $space-xl;
-  }
-}
-
-// ─── Summary override ─────────────────────────────────────────────────────────
-
-.tracker__summary--dash {
-  border-top: 3px solid $amber;
-}
-
-// ─── Table ────────────────────────────────────────────────────────────────────
+// ─── Table — keep high-contrast for scannability ─────────────────────────────
 
 .dash-table-wrap {
   overflow-x: auto;
@@ -49,17 +31,17 @@
 .dash-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.82rem;
+  font-size: 0.88rem;
 
   th {
     font-family: $font-heading;
-    font-size: 0.6rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     color: $color-label;
-    background: $shell;
-    padding: 0.6rem 0.85rem;
+    background: $parchment;
+    padding: 0.65rem 0.85rem;
     text-align: left;
     white-space: nowrap;
     border-bottom: 1px solid $fog-light;
@@ -75,22 +57,23 @@
   tbody tr {
     transition: background 0.1s;
     &:last-child td { border-bottom: none; }
-    &:hover td { background: $shell; }
+    &:hover td { background: $olive-faint; }
   }
 
   &__num {
     text-align: right;
     font-family: $font-heading;
-    font-size: 0.78rem;
-    font-weight: 600;
+    font-size: 0.84rem;
+    font-weight: 700;
     color: $color-primary;
     white-space: nowrap;
+    font-variant-numeric: tabular-nums;
   }
 
   &__date {
     white-space: nowrap;
     color: $color-text-muted;
-    font-size: 0.78rem;
+    font-size: 0.84rem;
   }
 
   &__note {
@@ -105,19 +88,19 @@
     td {
       font-family: $font-heading;
       font-size: 0.65rem;
-      font-weight: 600;
+      font-weight: 700;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       color: $color-label;
-      background: $shell;
+      background: $parchment;
       border-top: 1px solid $fog-light;
       border-bottom: none;
-      padding: 0.6rem 0.85rem;
+      padding: 0.65rem 0.85rem;
     }
 
     .dash-table__num {
       color: $color-primary;
-      font-size: 0.85rem;
+      font-size: 0.88rem;
     }
   }
 }

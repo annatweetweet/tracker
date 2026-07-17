@@ -3,88 +3,91 @@
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba($bark, 0.7);
+  background: rgba($bark, 0.55);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: $space-md;
   z-index: 100;
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(4px);
   &[hidden] { display: none; }
 }
 
 .modal {
-  background: $parchment;
-  border-radius: $radius-lg;
+  background: $shell;
+  border-radius: $radius-xl;
   width: 100%;
   max-width: 480px;
-  max-height: 90vh;         // never taller than the screen
+  max-height: 90vh;
   display: flex;
-  flex-direction: column;   // header + body + footer stack vertically
-  box-shadow: 0 20px 60px rgba($bark, 0.35);
-  overflow: hidden;         // clips the border-radius cleanly
+  flex-direction: column;
+  box-shadow: $shadow-modal;
+  overflow: hidden;
 
   &__header {
-    flex-shrink: 0;         // always visible, never scrolled away
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: $space-md $space-lg;
-    background: $shell;
+    background: $parchment;
     border-bottom: 1px solid $fog-light;
   }
 
   &__title {
     font-family: $font-heading;
-    font-size: 0.8rem;
-    font-weight: 600;
+    font-size: 0.9rem;
+    font-weight: 700;
     color: $color-text;
-    letter-spacing: 0.03em;
+    letter-spacing: 0.01em;
   }
 
   &__close {
     background: none;
     border: none;
-    color: $fog;
+    color: $moss-light;
     font-size: 1rem;
     line-height: 1;
     padding: 4px;
     border-radius: $radius-sm;
     transition: color 0.15s, background 0.15s;
     flex-shrink: 0;
-    &:hover { color: $rust; background: $rust-faint; }
+    &:hover { color: $bordeaux; background: $bordeaux-faint; }
   }
 
   &__body {
-    flex: 1;                // takes all available space between header and footer
-    overflow-y: auto;       // scrolls when content is taller than available space
+    flex: 1;
+    overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     padding: $space-lg;
 
     .expense-form__row { margin-bottom: $space-sm; }
 
-    // subtle scrollbar styling
     scrollbar-width: thin;
-    scrollbar-color: $fog $shell;
+    scrollbar-color: $fog-light $shell;
 
     &::-webkit-scrollbar { width: 6px; }
     &::-webkit-scrollbar-track { background: $shell; }
-    &::-webkit-scrollbar-thumb { background: $fog; border-radius: $radius-pill; }
-    &::-webkit-scrollbar-thumb:hover { background: $fog; }
+    &::-webkit-scrollbar-thumb { background: $fog-light; border-radius: $radius-pill; }
   }
 
   &__footer {
-    flex-shrink: 0;         // always visible, never scrolled away
+    flex-shrink: 0;
     display: flex;
     gap: $space-sm;
     justify-content: flex-end;
     padding: $space-md $space-lg;
-    background: $shell;
+    background: $parchment;
     border-top: 1px solid $fog-light;
     .btn { width: auto; margin-top: 0; }
   }
 
-  &--wide {
-    max-width: 560px;
+  &__hint {
+    font-size: 0.8rem;
+    color: $color-text-muted;
+    margin-bottom: $space-md;
+    line-height: 1.5;
   }
+
+  &--wide { max-width: 560px; }
 }

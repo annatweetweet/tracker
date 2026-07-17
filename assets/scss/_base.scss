@@ -4,19 +4,22 @@
 *::before,
 *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-html { font-size: 16px; -webkit-text-size-adjust: 100%; }
+[hidden] { display: none !important; }
+
+html { font-size: 17px; -webkit-text-size-adjust: 100%; }
 
 body {
   font-family: $font-body;
+  font-weight: 500;
   background-color: $parchment;
   color: $color-text;
-  line-height: 1.6;
+  line-height: 1.65;
   min-width: 320px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4 { font-family: $font-heading; font-weight: 600; line-height: 1.2; }
+h1, h2, h3, h4 { font-family: $font-heading; font-weight: 700; line-height: 1.25; }
 button { font-family: $font-body; cursor: pointer; }
 input, select, textarea { font-family: $font-body; }
 
@@ -25,30 +28,52 @@ input, select, textarea { font-family: $font-body; }
   align-items: center;
   justify-content: center;
   border: none;
-  border-radius: $radius-md;
+  border-radius: $radius-pill;
   font-family: $font-heading;
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  padding: 0.75rem 1.25rem;
-  transition: background 0.15s ease, transform 0.1s ease;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 0.7rem 1.4rem;
+  transition: background 0.18s ease, transform 0.1s ease, box-shadow 0.18s ease;
 
-  &:active { transform: scale(0.98); }
+  &:active { transform: scale(0.97); }
 
   &--primary {
     width: 100%;
     background: $color-primary;
-    color: $parchment;
+    color: $shell;
     margin-top: $space-sm;
-    &:hover { background: $color-primary-deep; }
+    box-shadow: 0 2px 8px rgba($olive, 0.28);
+
+    &:hover {
+      background: $color-primary-deep;
+      box-shadow: 0 4px 16px rgba($olive, 0.32);
+    }
   }
 
   &--ghost {
     background: transparent;
-    border: 1px solid $fog;
+    border: 1.5px solid $fog-light;
     color: $moss-mid;
     width: auto;
-    &:hover { border-color: $color-primary; color: $color-primary; }
+
+    &:hover {
+      border-color: $color-primary;
+      color: $color-primary;
+      background: $olive-faint;
+    }
+  }
+
+  &--danger {
+    background: $bordeaux-faint;
+    border: 1.5px solid rgba($bordeaux, 0.25);
+    color: $bordeaux-deep;
+    width: auto;
+
+    &:hover {
+      background: $bordeaux;
+      border-color: $bordeaux;
+      color: $shell;
+    }
   }
 }

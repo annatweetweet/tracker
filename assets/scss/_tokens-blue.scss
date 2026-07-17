@@ -1,0 +1,103 @@
+// ─── Cobalt & Butter ~ alternative color scheme ───────────────────────────────
+// To activate: set `theme = "blue"` in hugo.toml
+
+// ─── Neutrals ─────────────────────────────────────────────────────────────────
+
+$parchment:      #F4F7FF;   // airy blue-white page background
+$parchment-dark: #EBF0FF;
+$shell:          #FFFCE6;   // butter cream card surfaces
+$shell-dark:     #F5EDB0;   // deeper butter
+$fog:            #C2CDE8;   // cool blue-gray borders
+$fog-light:      #D8E4F4;
+
+// ─── Navy (dark surfaces) ────────────────────────────────────────────────────
+
+$bark:           #1B2D5A;   // header/dark bg              ~13:1 on $parchment
+$bark-mid:       #253F78;   // secondary dark surfaces
+
+// ─── Cobalt (primary ~ bright, confident) ────────────────────────────────────
+
+$olive:          #2347D4;   // renamed alias ~ cobalt primary  ~5.6:1 on parchment
+$olive-deep:     #1836A8;   // hover state                     ~8.2:1
+$olive-mid:      #4B6EE8;   // mid-tone accent                 ~3.8:1
+$olive-light:    #7A9AF4;   // chart fills (large text only)
+$olive-faint:    #EBF0FD;   // tinted bg
+
+// ─── Marigold (accent / butter glow) ─────────────────────────────────────────
+
+$bordeaux:       #C42848;   // repurposed ~ crimson danger      ~5.4:1 on parchment
+$bordeaux-deep:  #982038;
+$bordeaux-mid:   #E04A6A;
+$bordeaux-faint: #FDECF0;
+
+// ─── Rust (legacy ~ not used in blue theme) ───────────────────────────────────
+
+$rust:           #C42848;   // maps to crimson for consistency
+$rust-deep:      #982038;
+$rust-mid:       #E04A6A;
+$rust-faint:     #FDECF0;
+
+// ─── Marigold / Butter Gold (achievements, highlights) ───────────────────────
+
+$amber:          #C08A00;   // deep marigold for text          ~4.9:1 on parchment
+$amber-light:    #F2B820;   // bright butter yellow
+$amber-faint:    #FFF6CC;   // very light butter tint
+
+// ─── Slate (muted text / labels) ─────────────────────────────────────────────
+
+$moss:           #2A3B70;   // section titles, labels          ~8.5:1 on parchment
+$moss-mid:       #4A5E90;   // secondary text                  ~5.2:1
+$moss-light:     #7A8EBE;   // captions, placeholder           ~3.2:1 (large only)
+
+// ─── Semantic aliases ~ identical structure to default _tokens.scss ───────────
+
+$color-primary:       $olive;
+$color-primary-deep:  $olive-deep;
+$color-primary-mid:   $olive-mid;
+$color-primary-faint: $olive-faint;
+
+$color-header-bg:     $bark;
+$color-summary-bg:    $bark-mid;
+
+$color-text:          $bark;
+$color-text-muted:    $moss-mid;
+$color-text-subtle:   $moss-light;
+
+$color-label:         $moss;
+$color-accent:        $amber;
+$color-accent-light:  $amber-light;
+$color-accent-faint:  $amber-faint;
+
+$color-danger:        $bordeaux;
+$color-danger-faint:  $bordeaux-faint;
+
+// ─── Typography ~ unchanged ───────────────────────────────────────────────────
+
+$font-heading: 'Unbounded', sans-serif;
+$font-body:    'Albert Sans', sans-serif;
+
+// ─── Spacing ~ unchanged ──────────────────────────────────────────────────────
+
+$space-xs:  0.25rem;
+$space-sm:  0.5rem;
+$space-md:  1rem;
+$space-lg:  1.5rem;
+$space-xl:  2rem;
+$space-2xl: 3rem;
+
+// ─── Radii ~ unchanged ────────────────────────────────────────────────────────
+
+$radius-sm:   4px;
+$radius-md:   8px;
+$radius-lg:   14px;
+$radius-pill: 999px;
+
+// ─── Breakpoints ~ unchanged ──────────────────────────────────────────────────
+
+$bp-xs: 380px;
+$bp-sm: 480px;
+$bp-md: 768px;
+
+// ─── Dark-theme alias ────────────────────────────────────────────────────────
+
+$on-dark: $parchment;

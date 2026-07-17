@@ -1,7 +1,11 @@
 {
   "permissions": {
     "allow": [
-      "Bash(hugo --gc --minify)"
+      "Bash(hugo --gc --minify)",
+      "Bash(git checkout *)",
+      "Bash(git ls-tree *)",
+      "Bash(python3 *)",
+      "Bash(hugo --gc --minify --config hugo.toml -e production --baseURL \"https://agb.com/\")"
     ]
   }
 }

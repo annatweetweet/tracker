@@ -1,0 +1,15 @@
+// Cobalt & Butter theme entry point
+// Swaps the token file; all component partials are identical to the default build.
+@import 'tokens-blue';
+@import 'base';
+@import 'login';
+@import 'tracker';
+@import 'summary';
+@import 'form';
+@import 'cat-chart';
+@import 'expense-list';
+@import 'modal';
+@import 'dashboard';
+@import 'budget';
+@import 'trend';
+@import 'insights';

@@ -1,42 +1,48 @@
-// ─── Neutrals ─────────────────────────────────────────────────────────────────
+// ─── Wellness Palette ─────────────────────────────────────────────────────────
 
-$parchment:      #F5EFE4;   // warm off-white page background
-$parchment-dark: #EDE5D8;
-$shell:          #E8DECE;   // card surfaces
-$shell-dark:     #DDD0BE;
-$fog:            #C8BBA8;   // borders, dividers
-$fog-light:      #DDD0BE;
+// Surfaces
+$parchment:      #F5F2EC;   // warm cream page bg
+$parchment-dark: #EDE8DE;
+$shell:          #FFFFFF;   // white card surfaces
+$shell-dark:     #F0EAE0;   // warm off-white tracks / tags
+$fog:            #C8C2B6;   // muted border / placeholder
+$fog-light:      #E6E0D4;   // very subtle separator
 
-// ─── Bark (dark surfaces) ─────────────────────────────────────────────────────
+// Sage — primary (calm, wellness green)
+$olive:          #7A9E80;
+$olive-deep:     #4E6B54;
+$olive-mid:      #94B49A;
+$olive-light:    #B4D0BA;
+$olive-faint:    #EAF3EB;
 
-$bark:           #1C1409;   // header/dark bg              ~17:1 on $parchment
-$bark-mid:       #2E2010;   // secondary dark surfaces
+// Slate blue — neutral accent (pills, edit states)
+$amber:          #6E8FAD;
+$amber-light:    #8AAAC5;
+$amber-faint:    #EBF1F7;
 
-// ─── Rust (primary action) ────────────────────────────────────────────────────
+// Muted plum — attention state (no red, no warm tones)
+$bordeaux:       #8270A8;
+$bordeaux-deep:  #614F8A;
+$bordeaux-mid:   #A896C4;
+$bordeaux-faint: #F1EDF8;
+$rust:           #8270A8;
+$rust-deep:      #614F8A;
+$rust-mid:       #A896C4;
+$rust-faint:     #F1EDF8;
 
-$rust:           #7A3018;   // buttons, amounts, active     ~6.8:1 on $parchment
-$rust-deep:      #5A2010;   // hover state                  ~9.5:1 on $parchment
-$rust-mid:       #A04828;   // mid-tone accent
-$rust-faint:     #F5E8E3;   // tinted bg for errors / badges
+// Warm neutrals
+$bark:           #2A2724;   // header gradient start
+$bark-mid:       #38322D;   // header gradient end
+$moss:           #5C5852;   // labels, section titles
+$moss-mid:       #7A7570;   // secondary text
+$moss-light:     #A09C96;   // captions, placeholders
 
-// ─── Amber (secondary / warm highlight) ──────────────────────────────────────
+// ─── Semantic Aliases ────────────────────────────────────────────────────────
 
-$amber:          #A0621A;   // secondary labels, chart fill  ~5.1:1 on $parchment
-$amber-light:    #C48A3A;   // chart alt fill (not used for text on white)
-$amber-faint:    #FBF0DC;   // warm tinted bg
-
-// ─── Moss (muted text / labels) ───────────────────────────────────────────────
-
-$moss:           #3E4832;   // section titles, labels        ~7.8:1 on $parchment
-$moss-mid:       #5E6A50;   // secondary text                ~5.0:1 on $parchment
-$moss-light:     #8A9478;   // captions, placeholder         ~3.5:1 on $parchment (large text only)
-
-// ─── Semantic aliases ─────────────────────────────────────────────────────────
-
-$color-primary:       $rust;
-$color-primary-deep:  $rust-deep;
-$color-primary-mid:   $rust-mid;
-$color-primary-faint: $rust-faint;
+$color-primary:       $olive;
+$color-primary-deep:  $olive-deep;
+$color-primary-mid:   $olive-mid;
+$color-primary-faint: $olive-faint;
 
 $color-header-bg:     $bark;
 $color-summary-bg:    $bark-mid;
@@ -50,15 +56,17 @@ $color-accent:        $amber;
 $color-accent-light:  $amber-light;
 $color-accent-faint:  $amber-faint;
 
-$color-danger:        $rust;
-$color-danger-faint:  $rust-faint;
+$color-danger:        $bordeaux;
+$color-danger-faint:  $bordeaux-faint;
 
-// ─── Typography ───────────────────────────────────────────────────────────────
+$on-dark: $parchment;
 
-$font-heading: 'Unbounded', sans-serif;
+// ─── Typography ──────────────────────────────────────────────────────────────
+
+$font-heading: 'Inter', sans-serif;
 $font-body:    'Albert Sans', sans-serif;
 
-// ─── Spacing ──────────────────────────────────────────────────────────────────
+// ─── Spacing ─────────────────────────────────────────────────────────────────
 
 $space-xs:  0.25rem;
 $space-sm:  0.5rem;
@@ -67,14 +75,22 @@ $space-lg:  1.5rem;
 $space-xl:  2rem;
 $space-2xl: 3rem;
 
-// ─── Radii ────────────────────────────────────────────────────────────────────
+// ─── Radii ───────────────────────────────────────────────────────────────────
 
-$radius-sm:   4px;
-$radius-md:   8px;
-$radius-lg:   14px;
+$radius-sm:   6px;
+$radius-md:   12px;
+$radius-lg:   20px;
+$radius-xl:   28px;
 $radius-pill: 999px;
 
-// ─── Breakpoints ──────────────────────────────────────────────────────────────
+// ─── Shadows ─────────────────────────────────────────────────────────────────
+
+$shadow-sm:    0 1px 3px rgba(42, 39, 36, 0.06), 0 1px 2px rgba(42, 39, 36, 0.04);
+$shadow-card:  0 2px 8px rgba(42, 39, 36, 0.06), 0 4px 20px rgba(42, 39, 36, 0.04);
+$shadow-float: 0 4px 16px rgba(42, 39, 36, 0.09), 0 12px 36px rgba(42, 39, 36, 0.06);
+$shadow-modal: 0 8px 32px rgba(42, 39, 36, 0.18), 0 2px 8px rgba(42, 39, 36, 0.08);
+
+// ─── Breakpoints ─────────────────────────────────────────────────────────────
 
 $bp-xs: 380px;
 $bp-sm: 480px;

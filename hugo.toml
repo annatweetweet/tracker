@@ -1,6 +1,6 @@
 baseURL = "https://agb.com/"
 languageCode = "en-us"
-title = "Anna's Money Tracker"
+title = "Anna's Finances Tracker"
 
 [permalinks]
   [permalinks.page]
@@ -9,6 +9,7 @@ title = "Anna's Money Tracker"
 [params]
   description = "Personal expense tracker for AGB"
   author = "Anna"
+  theme = "default"  # set to "blue" to use the Cobalt & Butter theme
 
 [build]
   writeStats = true

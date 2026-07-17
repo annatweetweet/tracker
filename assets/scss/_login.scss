@@ -1,0 +1,92 @@
+@import 'tokens';
+
+// ─── Login gate ───────────────────────────────────────────────────────────────
+
+.login-gate {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $parchment;
+  padding: $space-lg;
+
+  &[hidden] { display: none !important; }
+}
+
+.login-card {
+  width: 100%;
+  max-width: 320px;
+  background: $shell;
+  border: 1px solid $fog-light;
+  border-radius: $radius-lg;
+  padding: $space-xl $space-xl $space-lg;
+  text-align: center;
+  box-shadow: 0 4px 24px rgba($bark, 0.07);
+
+  &__deco {
+    font-size: 2rem;
+    line-height: 1;
+    margin-bottom: $space-sm;
+    opacity: 0.7;
+  }
+
+  &__title {
+    font-family: $font-heading;
+    font-size: 0.88rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: $color-text;
+    margin-bottom: 0.2rem;
+  }
+
+  &__sub {
+    font-size: 0.72rem;
+    color: $color-text-muted;
+    margin-bottom: $space-lg;
+  }
+
+  &__fields {
+    display: flex;
+    flex-direction: column;
+    gap: $space-sm;
+    margin-bottom: $space-sm;
+  }
+
+  &__input {
+    font-family: $font-body;
+    font-size: 0.9rem;
+    background: $parchment;
+    border: 1.5px solid $fog-light;
+    border-radius: $radius-pill;
+    padding: 0.55rem 1rem;
+    color: $color-text;
+    outline: none;
+    width: 100%;
+    text-align: center;
+    transition: border-color 0.15s, box-shadow 0.15s;
+
+    &::placeholder { color: $fog; }
+    &:focus {
+      border-color: $olive-mid;
+      box-shadow: 0 0 0 2px rgba($olive, 0.1);
+    }
+
+    &.is-error {
+      border-color: $color-danger;
+      box-shadow: 0 0 0 2px rgba($bordeaux, 0.12);
+    }
+  }
+
+  &__error {
+    font-size: 0.72rem;
+    color: $color-danger;
+    margin-bottom: $space-xs;
+
+    &[hidden] { display: none; }
+  }
+
+  &__btn {
+    width: 100%;
+    margin-top: $space-sm;
+  }
+}

@@ -11,10 +11,7 @@
     padding: $space-md 0 0;
     border-bottom: 1px solid $fog-light;
 
-    @media (min-width: $bp-sm) {
-      height: 200px;
-      gap: $space-md;
-    }
+    @media (min-width: $bp-sm) { height: 200px; gap: $space-md; }
   }
 
   &__col {
@@ -37,9 +34,7 @@
     line-height: 1.2;
     word-break: break-all;
 
-    @media (min-width: $bp-sm) {
-      font-size: 0.6rem;
-    }
+    @media (min-width: $bp-sm) { font-size: 0.6rem; }
   }
 
   &__bar-wrap {
@@ -70,8 +65,8 @@
   }
 }
 
-// ─── Summary card over-budget state ──────────────────────────────────────────
+// ─── Over-budget stat value ───────────────────────────────────────────────────
 
 .summary-card__value--over {
-  color: $rust !important;
+  color: $bordeaux !important;
 }

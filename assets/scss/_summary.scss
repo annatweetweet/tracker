@@ -1,49 +1,70 @@
 @import 'tokens';
 
+// ─── Summary grid — floats up over the dark zone ─────────────────────────────
+
 .tracker__summary {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  background: $bark-mid;
+  gap: $space-sm;
+  padding: 0 $space-lg;
+  margin-top: -$space-xl;
+  position: relative;
+  z-index: 4;
+  background: transparent;
 
+  @media (min-width: $bp-sm) { gap: $space-md; }
+  @media (min-width: $bp-md) { padding: 0 $space-xl; }
   @media (max-width: $bp-xs) { grid-template-columns: 1fr 1fr; }
 }
 
+// ─── Individual stat cards ────────────────────────────────────────────────────
+
 .summary-card {
-  padding: $space-md $space-lg;
+  background: $shell;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-float;
+  padding: $space-md;
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
-  border-right: 1px solid rgba($parchment, 0.1);
+  gap: 0.25rem;
+  border: none;
 
-  &:last-child { border-right: none; }
+  @media (min-width: $bp-sm) { padding: $space-md $space-lg; }
 
   @media (max-width: $bp-xs) {
-    &:last-child {
-      grid-column: 1 / -1;
-      border-top: 1px solid rgba($parchment, 0.1);
-      border-right: none;
-    }
+    &:last-child { grid-column: 1 / -1; }
   }
 
   &__label {
     font-size: 0.65rem;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: rgba($parchment, 0.55);
-    font-weight: 500;
+    color: $color-text-subtle;
+    font-weight: 600;
   }
 
   &__value {
     font-family: $font-heading;
-    font-size: clamp(1rem, 4vw, 1.35rem);
-    font-weight: 600;
-    color: $parchment;
+    font-size: clamp(1rem, 3.8vw, 1.4rem);
+    font-weight: 700;
+    color: $color-text;
     line-height: 1.1;
+    font-variant-numeric: tabular-nums;
 
     &--sm {
-      font-size: clamp(0.7rem, 2.5vw, 0.85rem);
-      padding-top: 0.2rem;
+      font-size: clamp(0.78rem, 2.8vw, 0.95rem);
+      padding-top: 0.1rem;
       word-break: break-word;
     }
+
+    &--over { color: $bordeaux !important; }
   }
+}
+
+// ─── Dashboard variant ────────────────────────────────────────────────────────
+
+.tracker__summary--dash {
+  margin-top: 0;
+  padding: 0 $space-lg $space-md;
+  @media (min-width: $bp-md) { padding: 0 $space-xl $space-md; }
 }

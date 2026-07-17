@@ -1,83 +1,80 @@
 @import 'tokens';
 
-// ─── Spending insights panel ──────────────────────────────────────────────────
+// ─── Insights panel ───────────────────────────────────────────────────────────
 
 .insights-panel {
   background: $amber-faint;
   border-left: 3px solid $amber;
-  margin: 0 $space-lg;
+  margin: $space-sm $space-lg;
+  padding: $space-sm $space-md;
   border-radius: 0 $radius-md $radius-md 0;
 
-  @media (min-width: $bp-md) { margin: 0 $space-xl; }
-
-  &[hidden] { display: none; }
-
-  &__inner {
-    padding: $space-md;
-    display: flex;
-    flex-direction: column;
-    gap: $space-xs;
-  }
-
-  &__item {
-    font-size: 0.82rem;
-    color: $color-text;
-    line-height: 1.5;
+  @media (min-width: $bp-md) {
+    margin: $space-sm $space-xl;
   }
 }
 
-// ─── Carry-over suggestion bar ────────────────────────────────────────────────
+.insights-panel__item {
+  font-size: 0.82rem;
+  color: $color-text;
+  padding: 0.25rem 0;
+  line-height: 1.5;
+
+  & + & { border-top: 1px solid rgba($amber, 0.15); }
+}
+
+// ─── Carryover bar ────────────────────────────────────────────────────────────
 
 .carryover-bar {
-  background: $shell;
-  border: 1px solid $fog-light;
+  background: linear-gradient(135deg, rgba($amber, 0.10) 0%, rgba($amber-faint, 0.7) 100%);
+  border: 1px solid rgba($amber, 0.28);
   border-radius: $radius-lg;
-  margin: $space-lg $space-lg 0;
+  margin: 0 $space-lg $space-sm;
   padding: $space-md;
 
-  @media (min-width: $bp-md) { margin: $space-xl $space-xl 0; }
-
-  &[hidden] { display: none; }
-
-  &__title {
-    font-family: $font-heading;
-    font-size: 0.68rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: $color-label;
-    margin-bottom: $space-sm;
+  @media (min-width: $bp-md) {
+    margin: 0 $space-xl $space-sm;
   }
+}
 
-  &__list {
-    display: flex;
-    flex-direction: column;
-    gap: $space-xs;
-    margin-bottom: $space-md;
-  }
+.carryover-bar__title {
+  font-family: $font-heading;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $amber;
+  margin-bottom: $space-sm;
+}
 
-  &__actions {
-    display: flex;
-    gap: $space-sm;
-    align-items: center;
+.carryover-bar__hint {
+  font-size: 0.75rem;
+  color: $color-text-muted;
+  margin-bottom: $space-sm;
+}
 
-    .btn { margin-top: 0; }
-  }
+.carryover-bar__actions {
+  display: flex;
+  gap: $space-sm;
+  margin-top: $space-sm;
+  flex-wrap: wrap;
 }
 
 .carryover-item {
   display: flex;
   align-items: center;
   gap: $space-sm;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid rgba($amber, 0.12);
   cursor: pointer;
-  padding: $space-xs 0;
+
+  &:last-of-type { border-bottom: none; }
 
   &__check {
-    width: 16px;
-    height: 16px;
-    accent-color: $color-primary;
+    accent-color: $olive;
+    width: 15px;
+    height: 15px;
     flex-shrink: 0;
-    cursor: pointer;
   }
 
   &__info {
@@ -91,23 +88,183 @@
   &__cat {
     font-size: 0.82rem;
     color: $color-text;
-    font-weight: 500;
   }
 
   &__amt {
     font-family: $font-heading;
-    font-size: 0.75rem;
+    font-size: 0.78rem;
     font-weight: 600;
     color: $color-primary;
     flex-shrink: 0;
   }
 }
 
-// ─── Installment badge ────────────────────────────────────────────────────────
-
 .badge--installment {
-  background: $bordeaux-faint;
-  color: $bordeaux-mid;
-  border: 1px solid rgba($bordeaux, 0.25);
-  box-shadow: 0 0 6px rgba($bordeaux, 0.12);
+  display: inline-block;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: $moss;
+  background: rgba($moss, 0.12);
+  border: 1px solid rgba($moss, 0.25);
+  border-radius: $radius-pill;
+  padding: 1px 6px;
+  margin-left: 4px;
+  vertical-align: middle;
+}
+
+// ─── Donut chart ──────────────────────────────────────────────────────────────
+
+.donut-chart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-md;
+
+  @media (min-width: $bp-sm) {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  &__svg-wrap {
+    flex-shrink: 0;
+    width: 150px;
+    @media (min-width: $bp-sm) { width: 140px; }
+  }
+
+  &__svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  &__legend {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    flex: 1;
+    min-width: 0;
+    width: 100%;
+  }
+
+  &__legend-item {
+    display: grid;
+    grid-template-columns: 10px 1fr auto auto;
+    align-items: center;
+    gap: 0.45rem;
+  }
+
+  &__legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  &__legend-name {
+    font-size: 0.72rem;
+    color: $color-text-muted;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__legend-pct {
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: $color-text-subtle;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  &__legend-val {
+    font-family: $font-heading;
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: $color-text;
+    text-align: right;
+    white-space: nowrap;
+  }
+}
+
+// ─── Bulk delete bar ─────────────────────────────────────────────────────────
+
+.bulk-bar[hidden] { display: none !important; }
+
+.bulk-bar {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+  flex-wrap: wrap;
+  background: $olive-faint;
+  border: 1px solid rgba($olive, 0.22);
+  border-radius: $radius-md;
+  padding: $space-sm $space-md;
+  margin: 0 $space-lg $space-sm;
+
+  @media (min-width: $bp-md) {
+    margin: 0 $space-xl $space-sm;
+  }
+
+  &__count {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: $color-text;
+    flex: 1;
+  }
+
+  label {
+    display: flex;
+    align-items: center;
+    gap: $space-xs;
+    font-size: 0.75rem;
+    color: $color-text-muted;
+    cursor: pointer;
+  }
+
+  input[type='checkbox'] {
+    accent-color: $olive;
+    width: 14px;
+    height: 14px;
+  }
+}
+
+// ─── Dashboard empty state ────────────────────────────────────────────────────
+
+.dash-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: $space-xl $space-lg $space-2xl;
+  text-align: center;
+
+  &__art {
+    width: 110px;
+    height: auto;
+    margin-bottom: $space-md;
+  }
+
+  &__headline {
+    font-family: $font-heading;
+    font-size: 0.88rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: $color-text;
+    margin-bottom: $space-xs;
+  }
+
+  &__sub {
+    font-size: 0.82rem;
+    color: $color-text-muted;
+    max-width: 30ch;
+    line-height: 1.6;
+    margin-bottom: $space-lg;
+  }
+
+  &__cta {
+    width: auto !important;
+    margin-top: 0 !important;
+    padding: 0.65rem 1.75rem;
+  }
 }
